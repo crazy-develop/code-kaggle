@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import { GoogleGenAI } from '@google/genai';
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 
 // @ts-ignore
-const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY || "AIzaSyDnr4Mgix440arZr6qfaCPDYaehI0lPNps" });
+const ai = new GoogleGenAI({ apiKey: process.env.VITE_GEMINI_API_KEY });
 
 // Dummy bash execution wrapper (armorCodex hook simulation)
 async function executeBashSecurely(command, rawPrompt) {
@@ -35,16 +36,21 @@ app.post('/api/analyze', async (req, res) => {
   const { prompt, mimeType, imageBuffer } = req.body;
 
   try {
+    const userParts = [
+      { text: prompt + "\n\nExplain step by step in Hindi and English mix. Be a personal tutor. You can also run bash commands if needed." }
+    ];
+
+    if (imageBuffer && mimeType) {
+      userParts.push({ inlineData: { mimeType, data: imageBuffer } });
+    }
+
     // 1. Initial Prompt with Tool capabilities
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: [
         {
           role: 'user',
-          parts: [
-            { text: prompt + "\n\nExplain step by step in Hindi and English mix. Be a personal tutor. You can also run bash commands if needed." },
-            { inlineData: { mimeType, data: imageBuffer } }
-          ]
+          parts: userParts
         }
       ],
       tools: [{
@@ -86,10 +92,7 @@ app.post('/api/analyze', async (req, res) => {
          contents: [
            {
              role: 'user',
-             parts: [
-               { text: prompt + "\n\nExplain step by step in Hindi and English mix. Be a personal tutor. You can also run bash commands if needed." },
-               { inlineData: { mimeType, data: imageBuffer } }
-             ]
+             parts: userParts
            },
            {
              role: 'model',
