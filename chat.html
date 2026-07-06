@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Live Chat</title>
+  <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .chat-container {
+      width: 400px;
+      height: 600px;
+      background: #fff;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .chat-header {
+      background: #0084ff;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 10px 15px;
+      margin: 5px 0;
+      border-radius: 20px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .message.user {
+      background: #0084ff;
+      color: white;
+      align-self: flex-end;
+    }
+
+    .message.other {
+      background: #e5e5ea;
+      color: black;
+      align-self: flex-start;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+      background: #fafafa;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+    }
+
+    .chat-input button {
+      margin-left: 10px;
+      padding: 10px 20px;
+      background: #0084ff;
+      border: none;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .chat-input button:hover {
+      background: #006bbd;
+    }
+
+    /* Scrollbar design */
+    .chat-messages::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 10px;
+    }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Live Chat</div>
+    <div id="messages" class="chat-messages"></div>
+    <div class="chat-input">
+      <input id="msgInput" placeholder="Type a message..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const socket = io("http://localhost:3000");
+
+    //message receive
+    socket.on("chatMessage", (msg) => {
+      addMessage(msg, "other");
+    });
+
+
+    function sendMessage() {
+      const msg = document.getElementById("msgInput").value;
+      if (msg.trim() !== "") {
+        socket.emit("chatMessage", msg);
+        addMessage(msg, "user");
+        document.getElementById("msgInput").value = "";
+      }
+    }
+
+
+    function addMessage(msg, type) {
+      const div = document.createElement("div");
+      div.classList.add("message", type);
+      div.textContent = msg;
+      document.getElementById("messages").appendChild(div);
+
+
+      const chatMessages = document.getElementById("messages");
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+  </script>
+
+
+
+  <!-- tawk to -->
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+
+    // Adjust Widget Position (Custom CSS positioning for Tawk.to widget)
+    Tawk_API.customStyle = {
+      visibility: {
+        desktop: {
+          position: 'br',
+          xOffset: 15, // Horizontal distance from right
+          yOffset: 80  // Vertical distance from bottom (Increase this to move it higher)
+        },
+        mobile: {
+          position: 'br',
+          xOffset: 15,
+          yOffset: 80 // Vertical distance from bottom on mobile (Increase this to move it higher)
+        }
+      }
+    };
+
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/69b4f058406cbe1c37cf1ef8/1jjlclncf';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+</body>
+
+</html>

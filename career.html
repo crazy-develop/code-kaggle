@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Master Career Compendium - Suvidha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #00bfa6;
+            --primary-dark: #009985;
+            --secondary: #2563eb;
+            --accent: #f59e0b;
+            --bg: #f8fafc;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.9);
+            --card-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.08);
+            --premium-gradient: linear-gradient(135deg, #00bfa6, #2563eb);
+            
+            --path-sci: #3b82f6;
+            --path-com: #a855f7;
+            --path-art: #f59e0b;
+            --path-voc: #10b981;
+        }
+
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            padding-top: 80px;
+            scroll-behavior: smooth;
+        }
+
+        /* --- LOGO & NAV --- */
+        .navbar {
+            position: fixed; top: 0; width: 100%; z-index: 2000;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(0,0,0,0.05); padding: 12px 0;
+        }
+
+        .nav-container {
+            max-width: 1400px; margin: 0 auto; padding: 0 40px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo {
+            font-size: 32px; font-weight: 900; text-decoration: none;
+            background: var(--premium-gradient); -webkit-background-clip: text;
+            background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: var(--text-main); font-weight: 800;
+            font-size: 0.95rem; transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        .auth-chip {
+            display: none; align-items: center; gap: 10px;
+            background: #f1f5f9; padding: 5px 15px; border-radius: 50px;
+            text-decoration: none; border: 1px solid #e2e8f0;
+        }
+        .auth-chip img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid white; }
+        .auth-chip span { font-weight: 800; font-size: 0.85rem; color: var(--text-main); }
+
+        /* --- HERO --- */
+        .hero {
+            text-align: center; padding: 100px 20px 60px;
+            background: radial-gradient(circle at center, rgba(0, 191, 166, 0.04) 0%, transparent 70%);
+        }
+        .hero h1 { font-size: 4rem; font-weight: 900; letter-spacing: -3px; margin-bottom: 20px; }
+        .hero p { color: var(--text-sub); font-size: 1.2rem; max-width: 800px; margin: 0 auto 50px; }
+
+        .nav-hub {
+            display: inline-flex; background: #f1f5f9; padding: 8px;
+            border-radius: 50px; gap: 10px; margin-bottom: 80px;
+        }
+        .nav-hub button {
+            padding: 16px 45px; border: none; border-radius: 40px;
+            font-weight: 800; cursor: pointer; transition: 0.4s;
+            background: transparent; color: var(--text-sub);
+        }
+        .nav-hub button.active {
+            background: var(--white); color: var(--primary);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06); transform: scale(1.05);
+        }
+
+        /* --- CORE CONTENT --- */
+        .mega-container { max-width: 1400px; margin: 0 auto; padding: 0 40px 100px; }
+        .section-view { display: none; }
+        .section-view.active { display: block; animation: fadeInUp 0.7s forwards; }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .career-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 40px;
+        }
+
+        .path-group {
+            background: white; border-radius: 40px; padding: 50px;
+            box-shadow: var(--card-shadow); border: 1px solid #f1f5f9;
+            transition: 0.4s; position: relative; overflow: hidden;
+        }
+        .path-group:hover { transform: translateY(-10px); border-color: var(--primary); }
+
+        .path-title { display: flex; align-items: center; gap: 20px; margin-bottom: 35px; }
+        .p-icon {
+            width: 65px; height: 65px; border-radius: 22px; display: flex;
+            align-items: center; justify-content: center; font-size: 28px; color: white;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .role-list { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
+        .role-pill {
+            background: #f8fafc; padding: 14px 20px; border-radius: 14px;
+            font-size: 14px; font-weight: 800; color: var(--text-main);
+            border: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px;
+            transition: 0.3s;
+        }
+        .role-pill:hover { background: white; border-color: var(--primary); color: var(--primary); transform: translateX(8px); }
+        .role-pill::before { content: '◈'; color: var(--primary); font-size: 10px; opacity: 0.6; }
+
+        .hurdle-note {
+            margin-top: 30px; background: #fff1f2; padding: 20px; border-radius: 20px;
+            font-size: 13.5px; color: #be123c; border-left: 5px solid #ef4444; line-height: 1.6;
+        }
+
+        /* --- FOOTER --- */
+        .footer { background: #0f172a; color: #94a3b8; padding: 100px 40px 40px; }
+        .footer-grid {
+            max-width: 1400px; margin: 0 auto; display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 60px;
+        }
+        .f-col h4 { color: white; margin-bottom: 30px; font-weight: 800; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+        .f-links { list-style: none; }
+        .f-links li { margin-bottom: 15px; }
+        .f-links a { color: #94a3b8; text-decoration: none; font-weight: 700; font-size: 14px; transition: 0.3s; }
+        .f-links a:hover { color: var(--primary); }
+        
+        .social-box { display: flex; gap: 20px; margin-top: 30px; }
+        .social-icon {
+            width: 45px; height: 45px; background: rgba(255,255,255,0.05);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; color: white; transition: 0.3s; text-decoration: none;
+        }
+        .social-icon:hover { background: var(--premium-gradient); transform: translateY(-5px); }
+
+        .f-bottom { max-width: 1400px; margin: 80px auto 0; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; font-weight: 600; font-size: 13px; }
+
+    </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Suvidha</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="mentors.html">Mentors</a></li>
+                <li><a href="career.html" style="color: var(--primary);">Roadmaps</a></li>
+                <li><a href="solver.html">AI Query</a></li>
+                <li><a href="https://www.whatin.in/">Academic</a></li>
+            </ul>
+            <a href="dashboard.html" class="auth-chip" id="authWidget">
+                <img src="https://ui-avatars.com/api/?name=User&background=00bfa6&color=fff" id="userAvatar" alt="User">
+                <span id="userName">Profile</span>
+            </a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Career <span>Network.</span></h1>
+        <p>A data-driven professional compendium mapping every branch from Grade 10 to Executive Leadership.</p>
+
+        <div class="nav-hub">
+            <button class="active" onclick="showHub('hub-10')">Grade 10 Entry</button>
+            <button onclick="showHub('hub-12')">Grade 12 Mastery</button>
+            <button onclick="showHub('hub-pg')">Post-Grad Success</button>
+        </div>
+    </header>
+
+    <div class="mega-container">
+        
+        <!-- HUB 10 -->
+        <div id="hub-10" class="section-view active">
+            <div class="career-grid">
+                <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: var(--path-sci);">🧪</div>
+                        <h2>Science Domain (PCM/PCB)</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">Engineer</div>
+                        <div class="role-pill">Surgeon</div>
+                        <div class="role-pill">Scientist</div>
+                        <div class="role-pill">Pilot</div>
+                        <div class="role-pill">Architect</div>
+                        <div class="role-pill">Pharmacist</div>
+                        <div class="role-pill">Defense Officer</div>
+                        <div class="role-pill">Data Analyst</div>
+                    </div>
+                    <div class="hurdle-note"><b>🚧 Challenges:</b> Extreme entrance competition, intense study hours required for Tier-1 institutes.</div>
+                </article>
+
+                <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: var(--path-com);">📊</div>
+                        <h2>Commerce & Finance</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">CA / CS</div>
+                        <div class="role-pill">Investment Banker</div>
+                        <div class="role-pill">Economist</div>
+                        <div class="role-pill">Auditor</div>
+                        <div class="role-pill">Stock Broker</div>
+                        <div class="role-pill">Actuary</div>
+                        <div class="role-pill">Taxation Expert</div>
+                        <div class="role-pill">Business Analyst</div>
+                    </div>
+                    <div class="hurdle-note" style="background: #f5f3ff; color: #5b21b6; border-color: #8b5cf6;">
+                        <b>🚧 Challenges:</b> Complex logic mastering, stringent documentation ethics, and intense calculation rigor.
+                    </div>
+                </article>
+
+                <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: var(--path-art);">⚖️</div>
+                        <h2>Humanities & Creative</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">IAS / IPS</div>
+                        <div class="role-pill">Corporate Lawyer</div>
+                        <div class="role-pill">UX/UI Designer</div>
+                        <div class="role-pill">Journalist</div>
+                        <div class="role-pill">Psychologist</div>
+                        <div class="role-pill">Digital Marketer</div>
+                        <div class="role-pill">Art Director</div>
+                        <div class="role-pill">Hotel Mgmt</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- HUB 12 -->
+        <div id="hub-12" class="section-view">
+             <div class="career-grid">
+                <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: var(--path-sci);">💻</div>
+                        <h2>High-Tech Engineering</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">Cloud Architect</div>
+                        <div class="role-pill">AI/ML Engineer</div>
+                        <div class="role-pill">Full-Stack Dev</div>
+                        <div class="role-pill">Cyber Sec Expert</div>
+                        <div class="role-pill">Blockchain Dev</div>
+                        <div class="role-pill">EV Lead Eng</div>
+                    </div>
+                </article>
+
+                <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: #ef4444;">⚕️</div>
+                        <h2>Medical Specialization</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">Cardiologist</div>
+                        <div class="role-pill">Neurosurgeon</div>
+                        <div class="role-pill">Oncologist</div>
+                        <div class="role-pill">Dermatologist</div>
+                        <div class="role-pill">Radiologist</div>
+                        <div class="role-pill">Gynecologist</div>
+                    </div>
+                </article>
+             </div>
+        </div>
+
+        <!-- HUB PG -->
+        <div id="hub-pg" class="section-view">
+            <div class="career-grid">
+                 <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: #0f172a;">🏢</div>
+                        <h2>Management & Leadership</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">CEO / Founder</div>
+                        <div class="role-pill">Product Manager</div>
+                        <div class="role-pill">Chief Supply Off</div>
+                        <div class="role-pill">Operations Head</div>
+                    </div>
+                </article>
+
+                <article class="path-group">
+                    <div class="path-title">
+                        <div class="p-icon" style="background: var(--path-sci);">🇮🇳</div>
+                        <h2>Bureaucracy & Policy</h2>
+                    </div>
+                    <div class="role-list">
+                        <div class="role-pill">Ambassador (IFS)</div>
+                        <div class="role-pill">DM / Collector</div>
+                        <div class="role-pill">SP / Commissioner</div>
+                        <div class="role-pill">Policy Analyst</div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="f-col">
+                <a href="index.html" class="logo" style="color: white; margin-bottom: 30px; display: inline-block;">Suvidha</a>
+                <p style="font-size: 14px; line-height: 1.8;">Expert Guidance for Bharat's future leaders. Precision mapping for success from Grade 10 to Executive Mastery.</p>
+                <div class="social-box">
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="f-col">
+                <h4>Ecosystem</h4>
+                <ul class="f-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mentors.html">Find Mentors</a></li>
+                    <li><a href="career.html">Roadmaps</a></li>
+                    <li><a href="solver.html">AI Query</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>Support</h4>
+                <ul class="f-links">
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Help Center</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>Contact</h4>
+                <ul class="f-links">
+                    <li>support@suvidha-ai.in</li>
+                    <li>Mathura Hub, Uttar Pradesh</li>
+                    <li>+91-1800-SUVIDHA</li>
+                </ul>
+            </div>
+        </div>
+        <div class="f-bottom">
+            <p>&copy; 2025 Suvidha Career Hub. Realizing Potential Through Data.</p>
+        </div>
+    </footer>
+
+    <script>
+        function showHub(hubId) {
+            document.querySelectorAll('.section-view').forEach(hv => hv.classList.remove('active'));
+            document.querySelectorAll('.nav-hub button').forEach(hb => hb.classList.remove('active'));
+            document.getElementById(hubId).classList.add('active');
+            event.target.classList.add('active');
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+
+        // Auth Logic Integration
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem("loggedIn") === "true") {
+                document.getElementById('authWidget').style.display = 'flex';
+                const userEmail = localStorage.getItem("userEmail") || "pro@suvidha.in";
+                document.getElementById('userName').innerText = userEmail.split('@')[0];
+                document.getElementById('userAvatar').src = `https://ui-avatars.com/api/?name=${userEmail}&background=00bfa6&color=fff`;
+            }
+        });
+    </script>
+
+</body>
+</html>
+

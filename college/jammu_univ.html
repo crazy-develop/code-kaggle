@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University of Jammu - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; color: #1f2937; line-height: 1.6; }
+        .container { max-width: 1100px; background-color: #fff; margin: auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
+        .header { display: flex; align-items: center; padding: 30px; background: linear-gradient(135deg, #003366, #005999); color: #fff; }
+        .header img { width: 70px; height: 70px; border-radius: 12px; margin-right: 25px; border: 3px solid rgba(255,255,255,0.2); }
+        .header h1 { font-size: 28px; font-weight: 800; }
+        .header .meta { margin-top: 6px; font-size: 15px; opacity: 0.9; font-weight: 500; }
+        .banner { height: 250px; background-image: url('../college images/University of jammu .jpg.jpeg'); background-size: cover; background-position: center; position: relative; }
+        .banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); }
+        
+        .tabs { display: flex; justify-content: space-around; background-color: #ffffff; border-bottom: 2px solid #f1f5f9; position: sticky; top: 0; z-index: 10; }
+        .tabs div { padding: 18px 25px; cursor: pointer; font-weight: 700; color: #64748b; font-size: 15px; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tabs div.active { color: #2563eb; border-bottom-color: #2563eb; }
+        
+        .content { padding: 40px; display: none; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; animation: fadeIn 0.5s ease-out; }
+        .content.active-section { display: grid; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .card h3 { margin-bottom: 20px; color: #0f172a; font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .info-item { margin-bottom: 12px; display: flex; justify-content: space-between; font-size: 15px; }
+        .info-label { font-weight: 700; color: #64748b; }
+        .info-value { font-weight: 600; color: #1e293b; text-align: right; }
+        
+        .tag-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background: #fff; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 50px; font-size: 14px; font-weight: 600; color: #475569; }
+
+        .contact-box { background: #0f172a; color: white; padding: 40px; border-radius: 20px; grid-column: span 2; }
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; }
+        .contact-item a { color: #3b82f6; text-decoration: none; font-weight: 600; }
+
+        .apply-bar { text-align: center; padding: 40px; background: #fff; border-top: 1px solid #f1f5f9; }
+        .apply-btn { background: #2563eb; color: #fff; padding: 16px 40px; font-size: 18px; font-weight: 800; border: none; border-radius: 12px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2); }
+        .apply-btn:hover { background: #1d4ed8; transform: translateY(-3px); }
+    </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="../college images/University of jammu .jpg.jpeg" alt="JU Logo">
+            <div>
+                <h1>UNIVERSITY OF JAMMU</h1>
+                <div class="meta">Jammu, J&K • Established 1987 • NAAC A+</div>
+            </div>
+        </div>
+
+        <div class="banner"></div>
+
+        <div class="tabs">
+            <div class="active" onclick="switchTab(0)">Overview</div>
+            <div onclick="switchTab(1)">Academics</div>
+            <div onclick="switchTab(2)">Campus</div>
+            <div onclick="switchTab(3)">Admissions</div>
+        </div>
+
+        <!-- Overview -->
+        <div class="content active-section" id="sec-0">
+            <div class="card">
+                <h3>🏛️ Key Details</h3>
+                <div class="info-item"><span class="info-label">ESTABLISHED</span><span class="info-value">Founded in 1987</span></div>
+                <div class="info-item"><span class="info-label">TUITION FEE</span><span class="info-value">₹ 78,000 - ₹ 78,241 (Total 2-Yr)</span></div>
+                <div class="info-item"><span class="info-label">ACCREDITATION</span><span class="info-value">Recognized by UGC and AICTE</span></div>
+            </div>
+            <div class="card">
+                <h3>🌟 Institutional Vision</h3>
+                <p style="font-size: 15px; font-weight: 500; color: #475569;">To be a leading center of excellence in management education, teaching, and research.</p>
+            </div>
+            <div class="card" style="grid-column: span 2;">
+                <h3>🏆 Rankings & Awards</h3>
+                <ul style="list-style: none; display: grid; gap: 15px;">
+                    <li class="tag">Recognized as an A+ category B-School in the 2009 Business India Survey.</li>
+                    <li class="tag">Received the Dewang Mehta Excellence in Education Award in 2009 and 2012 for leadership and innovation.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Academics -->
+        <div class="content" id="sec-1">
+            <div class="card">
+                <h3>📘 Programs</h3>
+                <div class="tag-group">
+                    <span class="tag"><b>MBA:</b> 2-year full-time Business Administration</span>
+                    <span class="tag"><b>Ph.D.:</b> 3-year doctoral program</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🎓 Eligibility</h3>
+                <p><b>Education:</b> Bachelor's degree with at least 50% marks.</p>
+                <p><b>Exams:</b> Admission based on <b>CAT/MAT</b> scores.</p>
+            </div>
+        </div>
+
+        <!-- Campus -->
+        <div class="content" id="sec-2">
+            <div class="card" style="grid-column: span 2;">
+                <h3>🏢 Infrastructure & Facilities</h3>
+                <div class="tag-group">
+                    <span class="tag">Computer Lab (Video Conferencing)</span>
+                    <span class="tag">Library (14,000+ Books)</span>
+                    <span class="tag">Medical Facilities</span>
+                    <span class="tag">Hostel Accommodation</span>
+                    <span class="tag">Playground</span>
+                    <span class="tag">Cafeteria</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admissions -->
+        <div class="content" id="sec-3">
+            <div class="contact-box">
+                <h3 style="color: white; margin-bottom: 30px;">📞 Contact & Admissions</h3>
+                <div class="contact-grid">
+                    <div class="contact-item"><b>🌐 Website:</b> <a href="https://www.jammuuniversity.ac.in">TBS Website</a></div>
+                    <div class="contact-item"><b>📧 Email:</b> <a href="mailto:vershamehta@jammuuniversity.in">vershamehta@jammuuniversity.in</a></div>
+                    <div class="contact-item"><b>📞 Phone:</b> <a>0191-2430023</a></div>
+                    <div class="contact-item"><b>📍 Address:</b> <a>Baba Saheb Ambedkar Road, Jammu</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="apply-bar">
+            <button class="apply-btn" onclick="alert('Application successful! JU Team will contact you.')">Apply Now</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            document.querySelectorAll('.tabs div').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.content').forEach((c, i) => {
+                c.classList.toggle('active-section', i === index);
+                c.style.display = i === index ? 'grid' : 'none';
+            });
+        }
+    </script>
+</body>
+
+</html>
+

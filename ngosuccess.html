@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #007c91;
+      --secondary-dark: #333;
+      --text-light: #666;
+      --background-light: #f7fcff;
+      --card-background: #ffffff;
+      --card-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      --border-color: #eee;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--background-light);
+      color: var(--secondary-dark);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .profile-container {
+      width: 100%;
+      max-width: 600px;
+      background: var(--card-background);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      padding: 30px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-header {
+      margin-bottom: 25px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 20px;
+    }
+
+    .profile-header h1 {
+      font-size: 1.8rem;
+      margin-top: 10px;
+      font-weight: 700;
+    }
+
+    .profile-header p {
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    .profile-picture {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--primary-blue);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-details {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      background: #fcfcfc;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #f0f0f0;
+    }
+
+    .detail-item .icon {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      color: var(--primary-blue);
+      width: 24px;
+    }
+
+    .detail-item .label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .detail-item .value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--secondary-dark);
+    }
+
+    .cta-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      border-radius: 12px;
+      background: var(--primary-blue);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      margin-top: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0, 124, 145, 0.2);
+    }
+
+    .logout-button {
+      background: red;
+      margin-top: 10px;
+    }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div class="profile-container">
+    <div class="profile-header">
+      <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde" alt="Profile Picture" class="profile-picture">
+      <h1 id="profileName"></h1>
+      <p>Welcome to your profile!</p>
+    </div>
+
+    <div class="profile-details">
+      <div class="detail-item">
+        <span class="icon">📧</span>
+        <div>
+          <div class="label">Email Address</div>
+          <div class="value" id="profileEmail"></div>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span class="icon">📍</span>
+        <div>
+          <div class="label">Location</div>
+          <div class="value">India</div>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span class="icon">💼</span>
+        <div>
+          <div class="label">Status</div>
+          <div class="value">NGO</div>
+        </div>
+      </div>
+    </div>
+
+    <a href="mentors.html" class="cta-button">Go to content </a>
+    <button id="logoutBtn" class="cta-button logout-button">Logout</button>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { firebaseConfig } from "./firebaseConfig/ngoConfig.js";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // ✅ User data fetch
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        document.getElementById("profileName").innerText = user.displayName || "Guest";
+        document.getElementById("profileEmail").innerText = user.email;
+      } else {
+        // Not logged in → redirect
+        window.location.href = "login.html";
+      }
+    });
+
+    // ✅ Logout Function
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+      await signOut(auth);
+      localStorage.removeItem("loggedIn");
+      window.location.href = "login.html";
+    });
+  </script>
+
+</body>
+</html>
+

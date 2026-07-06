@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heritage School Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f6;
+      padding: 20px;
+      color: #1f2937;
+    }
+
+    .container {
+      max-width: 1100px;
+      background-color: #fff;
+      margin: auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #003366, #005999);
+      color: #fff;
+    }
+
+    .header img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .header .meta {
+      margin-top: 4px;
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .banner {
+      height: 200px;
+      background-image: url('https://images.unsplash.com/photo-1546410531-bb4caa6b424d?fit=crop&w=1000&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      background-color: #f9fafb;
+      border-top: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      position: relative;
+    }
+
+    .tabs div {
+      padding: 12px 20px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #374151;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .tabs div.active {
+      color: #2563eb;
+    }
+
+    .tabs div.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 100%;
+      background-color: #2563eb;
+      border-radius: 3px 3px 0 0;
+      transition: width 0.3s ease;
+    }
+
+    /* Sections */
+    .content {
+      padding: 30px;
+      display: none;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .content.active-section {
+      display: grid;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card {
+      background-color: #f9fafb;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    .card h3 {
+      margin-bottom: 15px;
+      color: #111827;
+      font-size: 18px;
+    }
+
+    .stats-list p,
+    .fees-list p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .card ul li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .card ul li::before {
+      content: '✔';
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: bold;
+    }
+
+    /* Tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      background-color: #f1f5f9;
+      color: #1e293b;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Admissions */
+    .contact-info p {
+      margin: 5px 0;
+      font-size: 14px;
+    }
+
+    /* Button */
+    .actions {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .apply-btn {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .apply-btn:hover {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+    }
+
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://share.google/images/kGAIWmGx6AP0bJRyR" alt="Heritage School Logo">
+      <div>
+        <h1>Heritage School Jammu</h1>
+        <div class="meta">Jammu   • ⭐ 4.7</div>
+      </div>
+    </div>
+
+    <div class="banner"></div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="active">Overview</div>
+      <div>Academics</div>
+      <div>Facilities</div>
+      <div>Contact</div>
+    </div>
+
+    <!-- Overview -->
+    <div class="content active-section" id="overview-section">
+      <div class="card">
+        <h3>🎓 Key Information</h3>
+        <div class="stats-list">
+          <p><strong>Established:</strong> 2007</p>
+          <p><strong>Affiliation:</strong> CBSE</p>
+          <p><strong>Curriculum:</strong> CBSE</p>
+          <p><strong>Type:</strong> Co-educational</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>⭐ School Highlights</h3>
+        <ul>
+          <li>Premier K-12 educational institution in Jammu</li>
+          <li>Focus on holistic development</li>
+          <li>Modern infrastructure and labs</li>
+          <li>Comprehensive career counseling</li>
+          <li>Strong emphasis on English and Sciences</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Academics -->
+    <div class="content" id="academics-section">
+      <div class="card">
+        <h3>📘 Subjects Emphasized</h3>
+        <div class="tags">
+          <span class="tag">English</span>
+          <span class="tag">Mathematics</span>
+          <span class="tag">Science</span>
+          <span class="tag">Social Studies</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>🔍 Specialized Labs</h3>
+        <div class="tags">
+          <span class="tag">Computer Lab</span>
+          <span class="tag">EVS Lab</span>
+        </div>
+      </div>
+      <div class="card" style="grid-column: span 2;">
+        <h3>👨‍🏫 Career Counseling</h3>
+        <p>The school provides dedicated career counseling services to help students identify suitable courses and universities for their higher education, ensuring a smooth transition from school to college.</p>
+      </div>
+    </div>
+
+    <!-- Facilities -->
+    <div class="content" id="facilities-section">
+      <div class="card" style="grid-column: span 2;">
+        <h3>🏢 Campus Facilities</h3>
+        <ul>
+          <li>Smart Classrooms</li>
+          <li>Well-equipped Science Labs</li>
+          <li>Advanced Computer Laboratories</li>
+          <li>EVS Resource Center</li>
+          <li>Sports Complex and Playground</li>
+          <li>Library with vast collection</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="content" id="contact-section">
+      <div class="card" style="grid-column: span 2;">
+        <h3>📞 Contact Information</h3>
+        <div class="contact-info">
+          <p>🌐 <a href="http://heritageschooljammu.com" target="_blank">Visit Website</a></p>
+          <p>✉️ heritageschooljammu@gmail.com</p>
+          <p>📍 Jammu, Jammu & Kashmir</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="apply-btn">Apply Now</button>
+    </div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll(".tabs div");
+    const sections = [
+      document.getElementById("overview-section"),
+      document.getElementById("academics-section"),
+      document.getElementById("facilities-section"),
+      document.getElementById("contact-section"),
+    ];
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        sections.forEach(sec => {
+          sec.classList.remove("active-section");
+          sec.style.display = "none";
+        });
+
+        sections[index].style.display = "grid";
+
+        requestAnimationFrame(() => {
+          sections[index].classList.add("active-section");
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
+

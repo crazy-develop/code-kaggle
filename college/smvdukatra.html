@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMVDU Katra - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; color: #1f2937; }
+    .container { max-width: 1100px; background-color: #fff; margin: auto; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+    .header { display: flex; align-items: center; padding: 20px; background: linear-gradient(135deg, #003366, #ff9933); color: #fff; }
+    .header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 20px; }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .banner { height: 200px; background-image: url('https://images.unsplash.com/photo-1541339907198-e08756edd811?fit=crop&w=1000&q=80'); background-size: cover; background-position: center; }
+    .tabs { display: flex; justify-content: space-around; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+    .tabs div { padding: 12px 20px; cursor: pointer; font-weight: 600; color: #374151; transition: 0.3s; }
+    .tabs div.active { color: #2563eb; border-bottom: 3px solid #2563eb; }
+    .content { padding: 30px; display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .content.active-section { display: grid; }
+    .card { background-color: #f9fafb; padding: 20px; border-radius: 12px; }
+    .card ul { list-style: none; }
+    .card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+    .card ul li::before { content: '✔'; position: absolute; left: 0; color: #ff9933; font-weight: bold; }
+    .actions { padding: 20px; text-align: center; }
+    .apply-btn { background: #ff9933; color: #fff; padding: 14px 28px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://share.google/images/mhQ2NRTpDTnZKv2Xc" alt="SMVDU Logo">
+      <div>
+        <h1>Shri Mata Vaishno Devi University (SMVDU)</h1>
+        <p>Katra, Jammu & Kashmir • Established 1999</p>
+      </div>
+    </div>
+    <div class="banner"></div>
+    <div class="tabs">
+      <div class="active">Overview</div>
+      <div>Academics</div>
+      <div>Fees</div>
+      <div>Admissions</div>
+    </div>
+    <div class="content active-section" id="overview-section">
+      <div class="card">
+        <h3>🎓 Key Details</h3>
+        <p><strong>Type:</strong> Public, Residential Technical University</p>
+        <p><strong>Established:</strong> May 12, 1999</p>
+        <p><strong>Campus:</strong> 470 Acres (Residential)</p>
+      </div>
+      <div class="card">
+        <h3>✅ Accreditation</h3>
+        <p>Recognized by UGC, NAAC, AICTE, and Council of Architecture.</p>
+        <p>NIRF: Top ranked in the region.</p>
+      </div>
+    </div>
+    <div class="content" id="academics-section">
+      <div class="card">
+        <h3>📘 Programs</h3>
+        <p>Undergraduate, Postgraduate, and PhD.</p>
+        <p><strong>Key Disciplines:</strong> Engineering, Management, Architecture, Science, Philosophy.</p>
+      </div>
+      <div class="card">
+        <h3>🏢 Campus Facilities</h3>
+        <ul>
+          <li>Clinical laboratory, dental unit, physiotherapy.</li>
+          <li>Residential facilities (hostels for boys and girls).</li>
+          <li>Well-appointed guest house for visitors.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="content" id="fees-section">
+      <div class="card" style="grid-column: span 2;">
+        <h3>💰 Fees for B.Tech (2025-26)</h3>
+        <p><strong>Total Estimated:</strong> ~₹2,29,746</p>
+        <ul style="display: grid; grid-template-columns: 1fr 1fr;">
+          <li>Tuition Fee: ₹1,41,240</li>
+          <li>Annual Fee: ₹17,500</li>
+          <li>One-Time Charges: ₹12,750</li>
+          <li>Hostel: ₹20,000</li>
+          <li>Security: ₹10,000</li>
+        </ul>
+      </div>
+    </div>
+    <div class="content" id="admissions-section">
+      <div class="card">
+        <h3>📅 Admissions</h3>
+        <p>Selection via <strong>JEE Main</strong> or <strong>CUET UG</strong> for engineering.</p>
+        <p>Eligibility: 10+2 with PCM.</p>
+      </div>
+      <div class="card">
+        <h3>📞 Contact</h3>
+        <p>📍 Near Katra, Reasi Dist, J&K</p>
+        <p>Shri Mata Vaishno Devi Shrine Board funded.</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="apply-btn" onclick="openApplicationForm()">Apply Now</button>
+    </div>
+  </div>
+  <div id="applyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:white; padding:40px; border-radius:24px; width:100%; max-width:500px;">
+      <h2>Apply for SMVDU</h2>
+      <form onsubmit="event.preventDefault(); window.location.href='apply_success.html';">
+        <input type="text" placeholder="Name" required style="width:100%; padding:12px; margin-bottom:15px;">
+        <input type="email" placeholder="Email" required style="width:100%; padding:12px; margin-bottom:15px;">
+        <button type="submit" class="apply-btn" style="width:100%;">Submit</button>
+        <button type="button" onclick="document.getElementById('applyModal').style.display='none'" style="margin-top:10px; width:100%; border:none; background:#eee; padding:10px;">Cancel</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    function openApplicationForm() { document.getElementById('applyModal').style.display = 'flex'; }
+    const tabs = document.querySelectorAll(".tabs div");
+    const sections = [
+      document.getElementById("overview-section"),
+      document.getElementById("academics-section"),
+      document.getElementById("fees-section"),
+      document.getElementById("admissions-section"),
+    ];
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        sections.forEach(s => s.classList.remove("active-section"));
+        sections[index].classList.add("active-section");
+      });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,5 @@
+{
+  "name": "VisionMind - AI Image Analyzer",
+  "description": "Analyze images and get instant answers using Google Gemini AI. Upload any image and ask questions about its content.",
+  "requestFramePermissions": []
+}

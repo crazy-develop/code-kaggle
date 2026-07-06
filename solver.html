@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suvidha AI | Career Compass</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00bfa6;
+      --secondary: #0f172a;
+      --bg: #f8fafc;
+      --text: #1e293b;
+      --glass: rgba(255, 255, 255, 0.9);
+      --premium-gradient: linear-gradient(135deg, #0f172a 0%, #00bfa6 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Navbar styling to match main site */
+    .navbar {
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      padding: 15px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--secondary);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Main Container */
+    .solver-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .header-section {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .header-section h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #00bfa6, #2563eb);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    .header-section p {
+      color: #64748b;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Integrated VisionMind Card */
+    .vision-card-container {
+      background: white;
+      border-radius: 40px;
+      padding: 10px;
+      box-shadow: 0 40px 100px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .iframe-wrapper {
+      width: 100%;
+      height: 750px;
+      border-radius: 35px;
+      overflow: hidden;
+      background: #f1f5f9;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Status Indicator */
+    .status-bar {
+      margin-top: 30px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      padding: 12px 30px;
+      border-radius: 100px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: #00bfa6;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #00bfa6;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.6; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .status-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    .debug-link {
+      font-size: 12px;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .debug-link:hover {
+      color: var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .header-section h1 { font-size: 2.2rem; }
+      .iframe-wrapper { height: 600px; }
+      .navbar { padding: 15px 20px; }
+      .nav-links { display: none; }
+    }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">Career<span>Compass</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="compare.html">Compare</a></li>
+      <li><a href="jobs.html">Opportunities</a></li>
+      <li><a href="https://www.whatin.in/">Academic</a></li>
+      <li><a href="solver.html" style="color: var(--primary);">AI Solver ✨</a></li>
+    </ul>
+    <div style="display: flex; gap: 10px;">
+      <a href="https://hfmhacathon.in/" target="_blank" style="padding: 10px 20px; background: var(--secondary); color: white; border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 600;">Hackathon 2026</a>
+    </div>
+  </nav>
+
+  <main class="solver-container">
+    <header class="header-section">
+      <h1>Suvidha AI Intelligence Engine</h1>
+      <p>Seamlessly integrated academic scanning system. Capture questions from your camera or type them to receive instant, step-by-step verified solutions.</p>
+    </header>
+
+    <!-- The Complete Suvidha AI Integration Area -->
+    <div class="vision-card-container">
+      <div class="iframe-wrapper">
+        <!-- Connecting to the local React Engine on Port 3000 -->
+        <iframe src="http://localhost:3000" title="Suvidha AI Engine"></iframe>
+      </div>
+    </div>
+
+    <!-- Live Status Monitoring -->
+    <div class="status-bar">
+      <div class="badge">
+        <span class="dot"></span>
+        <span class="status-text">HACATHON DEMO: Port 3000 Live</span>
+      </div>
+      <div style="display:flex; gap:20px;">
+        <a href="http://localhost:3000" target="_blank" class="debug-link">↗️ Open in New Tab</a>
+        <span style="color:#e2e8f0">|</span>
+        <a href="http://localhost:5000" target="_blank" class="debug-link">🔍 Backend Debug</a>
+      </div>
+      <p style="font-size:11px; color:#94a3b8; max-width:400px; margin-top:10px;">
+        Note: Ensure your terminal is running `npm run dev` inside the HACATHON-MATHURA folder for this engine to function during the demonstration.
+      </p>
+    </div>
+  </main>
+
+  <footer style="margin-top: 100px; padding: 40px; text-align: center; color: #94a3b8; border-top: 1px solid #e2e8f0;">
+    <p>&copy; 2026 Suvidha Career Compass. Built for Sanskriti HackIndia.</p>
+  </footer>
+
+</body>
+
+</html>

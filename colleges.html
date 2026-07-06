@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colleges - Suvidha Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-base: #f3f4f6;
+            --bg-surface: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .grid-container {
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .college-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .college-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #93c5fd;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .card-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .card-location {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .card-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-weight: 600;
+            color: #d97706;
+        }
+
+        .view-btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .college-card:hover .view-btn {
+            background-color: var(--primary-hover);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            grid-column: 1 / -1;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Explore Colleges</h1>
+        <p class="subtitle">Find the best university for your future</p>
+    </header>
+
+    <div class="grid-container" id="college-grid">
+        <div class="loading">Loading colleges from Notion...</div>
+    </div>
+
+    <script>
+        // Mock fallback data in case Notion API fails
+        const mockColleges = [
+            {
+                id: "mock-1",
+                name: "Sanskriti University",
+                location: "Mathura",
+                rating: 4.9,
+                imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800",
+                ranking: 1,
+                placementRate: 98
+            },
+            {
+                id: "mock-2",
+                name: "IIT Delhi",
+                location: "New Delhi",
+                rating: 4.8,
+                imageUrl: "https://images.unsplash.com/photo-1562774053-701939374585?w=800",
+                ranking: 2,
+                placementRate: 95
+            }
+        ];
+
+        function renderColleges(colleges) {
+            const grid = document.getElementById('college-grid');
+            grid.innerHTML = '';
+
+            if (colleges.length === 0) {
+                grid.innerHTML = `<div class="loading">No colleges found in the database.</div>`;
+                return;
+            }
+
+            colleges.forEach((college, index) => {
+                const card = document.createElement('a');
+                card.href = `college-details.html?id=${college.id}`;
+                card.className = 'college-card';
+                card.style.animation = `fadeInUp 0.5s ease-out ${index * 0.1}s both`;
+
+                card.innerHTML = `
+                    <img src="${college.imageUrl}" alt="${college.name}" class="card-img" onerror="this.src='https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800'">
+                    <div class="card-content">
+                        <h2 class="card-title">${college.name}</h2>
+                        <div class="card-location">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            ${college.location}
+                        </div>
+                        
+                        <div class="card-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">#${college.ranking}</span>
+                                <span class="stat-label">Ranking</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">${college.placementRate}%</span>
+                                <span class="stat-label">Placements</span>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <div class="rating">
+                                ⭐ ${college.rating}
+                            </div>
+                            <span class="view-btn">View Details</span>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function fetchColleges() {
+            try {
+                const response = await fetch('http://localhost:3000/api/colleges');
+                if (!response.ok) throw new Error('API server not responding');
+                const data = await response.json();
+                renderColleges(data);
+            } catch (error) {
+                console.warn("Could not connect to Notion API. Falling back to mock data.", error);
+                renderColleges(mockColleges);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchColleges);
+    </script>
+</body>
+</html>

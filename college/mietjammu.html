@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MIET Jammu - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; color: #1f2937; }
+    .container { max-width: 1100px; background-color: #fff; margin: auto; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+    .header { display: flex; align-items: center; padding: 20px; background: linear-gradient(135deg, #003366, #005999); color: #fff; }
+    .header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 20px; }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .header .meta { margin-top: 4px; font-size: 14px; opacity: 0.85; }
+    .banner { height: 200px; background-image: url('https://images.unsplash.com/photo-1541339907198-e08756edd811?fit=crop&w=1000&q=80'); background-size: cover; background-position: center; }
+    .tabs { display: flex; justify-content: space-around; background-color: #f9fafb; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; position: relative; }
+    .tabs div { padding: 12px 20px; cursor: pointer; font-weight: 600; color: #374151; position: relative; transition: color 0.3s ease; }
+    .tabs div.active { color: #2563eb; }
+    .tabs div.active::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background-color: #2563eb; border-radius: 3px 3px 0 0; }
+    .content { padding: 30px; display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .content.active-section { display: grid; opacity: 1; transform: translateY(0); }
+    .card { background-color: #f9fafb; padding: 20px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); }
+    .card h3 { margin-bottom: 15px; color: #111827; font-size: 18px; }
+    .stats-list p, .fees-list p { margin: 8px 0; font-size: 15px; }
+    .card ul { list-style: none; padding-left: 0; }
+    .card ul li { margin-bottom: 10px; position: relative; padding-left: 20px; }
+    .card ul li::before { content: '✔'; position: absolute; left: 0; color: #10b981; font-weight: bold; }
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .tag { background-color: #f1f5f9; color: #1e293b; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 500; }
+    .contact-info p { margin: 5px 0; font-size: 14px; }
+    .actions { padding: 20px; text-align: center; }
+    .apply-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; padding: 14px 28px; font-size: 16px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://share.google/images/eyUAJtjEd6Z9GoSwo" alt="MIET Logo">
+      <div>
+        <h1>Model Institute of Engineering and Technology (MIET)</h1>
+        <div class="meta">Jammu • ⭐ 4.6 • Established 1996</div>
+      </div>
+    </div>
+    <div class="banner"></div>
+    <div class="tabs">
+      <div class="active">Overview</div>
+      <div>Academics</div>
+      <div>Accreditation</div>
+      <div>Admissions</div>
+    </div>
+    <div class="content active-section" id="overview-section">
+      <div class="card">
+        <h3>🎓 Key Details</h3>
+        <div class="stats-list">
+          <p><strong>Establishment:</strong> 1996</p>
+          <p><strong>Affiliation:</strong> University of Jammu</p>
+          <p><strong>Parent Group:</strong> MIER Group</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>💰 Fees Structure</h3>
+        <div class="fees-list" style="font-size: 14px;">
+          <p><strong>B.E./B.Tech:</strong> ₹1.1 Lakhs - ₹2.3 Lakhs</p>
+          <p><strong>BCA/B.Com (Hons.):</strong> ₹78,700</p>
+          <p><strong>BBA LL.B. (Hons.):</strong> ₹90,200</p>
+        </div>
+      </div>
+      <div class="card" style="grid-column: span 2;">
+        <h3>🏆 Rankings & Awards</h3>
+        <ul>
+          <li>ARIIA-Enabler Institution</li>
+          <li>3.5-star CII rating</li>
+          <li>Top engineering college in the region.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="content" id="academics-section">
+      <div class="card">
+        <h3>📘 Undergraduate Programs</h3>
+        <div class="tags">
+          <span class="tag">B.Tech (CSE, Cyber Security, Civil, AI/ML, EE, ECE)</span>
+          <span class="tag">B.Com (Hons.)</span>
+          <span class="tag">BCA (Hons.)</span>
+          <span class="tag">BBA LL.B. (Hons.)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>👨‍🎓 Postgraduate Programs</h3>
+        <div class="tags">
+          <span class="tag">MBA</span>
+          <span class="tag">MCA</span>
+          <span class="tag">Doctoral Programs (Ph.D.)</span>
+        </div>
+      </div>
+    </div>
+    <div class="content" id="accreditation-section">
+      <div class="card" style="grid-column: span 2;">
+        <h3>✅ Quality Assurance</h3>
+        <ul>
+          <li><strong>NAAC 'A' Grade</strong> Accredited.</li>
+          <li><strong>NBA</strong> Accredited for Computer Science and MBA.</li>
+          <li>Approvals by <strong>UGC, AICTE, and Bar Council of India</strong>.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="content" id="admissions-section">
+      <div class="card">
+        <h3>📅 Admission Process</h3>
+        <p>Entrance Exams: <strong>JEE Main, CUET, or MET (MIET Entrance Test)</strong></p>
+        <p>Candidates must meet academic eligibility and have a domicile certificate.</p>
+      </div>
+      <div class="card">
+        <h3>📞 Contact Info</h3>
+        <div class="contact-info">
+          <p>🌐 <a href="#">Visit MIET Website</a></p>
+          <p>📍 Kot Bhalwal, Jammu - 181122</p>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="apply-btn" onclick="openApplicationForm()">Apply Now</button>
+    </div>
+  </div>
+
+  <div id="applyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:white; padding:40px; border-radius:24px; width:100%; max-width:500px; box-shadow:0 10px 40px rgba(0,0,0,0.2); position:relative;">
+      <h2 style="margin-bottom:20px;">Application Form</h2>
+      <p style="margin-bottom:20px;">Applying for: <strong>MIET Jammu</strong></p>
+      <form onsubmit="event.preventDefault(); window.location.href='apply_success.html';">
+        <div style="margin-bottom:15px;"><label style="display:block; margin-bottom:5px;">Full Name</label><input type="text" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px;"></div>
+        <div style="margin-bottom:15px;"><label style="display:block; margin-bottom:5px;">Email</label><input type="email" required style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px;"></div>
+        <div style="margin-bottom:30px;"><label style="display:block; margin-bottom:5px;">Program</label><select style="width:100%; padding:10px; border:1px solid #ddd; border-radius:8px;"><option>B.Tech CSE</option><option>B.Tech AI/ML</option><option>MBA</option><option>BBA LL.B.</option></select></div>
+        <div style="display:flex; gap:10px;"><button type="submit" class="apply-btn" style="flex:1;">Submit</button><button type="button" onclick="closeApplicationForm()" style="flex:1; border:none; background:#eee; border-radius:8px; cursor:pointer;">Cancel</button></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openApplicationForm() { document.getElementById('applyModal').style.display = 'flex'; }
+    function closeApplicationForm() { document.getElementById('applyModal').style.display = 'none'; }
+    const tabs = document.querySelectorAll(".tabs div");
+    const sections = [
+      document.getElementById("overview-section"),
+      document.getElementById("academics-section"),
+      document.getElementById("accreditation-section"),
+      document.getElementById("admissions-section"),
+    ];
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        sections.forEach(sec => { sec.classList.remove("active-section"); sec.style.display = "none"; });
+        sections[index].style.display = "grid";
+        requestAnimationFrame(() => { sections[index].classList.add("active-section"); });
+      });
+    });
+  </script>
+</body>
+</html>
+

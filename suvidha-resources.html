@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suvidha - Student Resource Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg-base: #0f172a;
+            --bg-surface: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(168, 85, 247, 0.15), transparent 25%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .table-container {
+            width: 100%;
+            max-width: 1200px;
+            background: var(--bg-surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 0.8s ease-out;
+            overflow-x: auto;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .table-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .db-id-badge {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #818cf8;
+            font-family: monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            transform: translateY(-2px);
+        }
+
+        .badge {
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .badge.category { background: rgba(56, 189, 248, 0.15); color: #38bdf8; }
+        .badge.subject { background: rgba(168, 85, 247, 0.15); color: #a855f7; }
+        .badge.semester { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+
+        .file-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .file-link:hover {
+            color: var(--primary-hover);
+            text-decoration: underline;
+        }
+
+        .date-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .table-container { padding: 1.5rem; }
+            th, td { padding: 0.75rem 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .table-header { flex-direction: column; gap: 1rem; align-items: flex-start; }
+            th, td { white-space: nowrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Suvidha</h1>
+        <p class="subtitle">A Student Resource Platform</p>
+    </header>
+
+    <div class="table-container">
+        <div class="table-header">
+            <h2>Resource Database</h2>
+            <!-- Mock Database ID for API Integration reference -->
+            <div class="db-id-badge">DB_ID: suvidha_res_9f8a7b6c5d</div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name (Title)</th>
+                    <th>Category</th>
+                    <th>Subject</th>
+                    <th>Semester</th>
+                    <th>File Link</th>
+                    <th>Added Date</th>
+                </tr>
+            </thead>
+            <tbody id="resource-table-body">
+                <!-- Data will be populated here via JavaScript to simulate API fetching -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Mock Data representing the database rows as a fallback
+        const mockDatabaseRows = [
+            {
+                id: "RES-001",
+                name: "Data Analytics Unit 1 Notes",
+                category: "Notes",
+                subject: "Computer Science",
+                semester: "Vth",
+                fileLink: "https://drive.google.com/file/d/sample-link-1",
+                addedDate: "2026-06-15"
+            },
+            {
+                id: "RES-002",
+                name: "Advanced Calculus 2025 Paper",
+                category: "Previous Year Paper",
+                subject: "Mathematics",
+                semester: "IInd",
+                fileLink: "https://drive.google.com/file/d/sample-link-2",
+                addedDate: "2026-06-18"
+            },
+            {
+                id: "RES-003",
+                name: "Python Core Concepts Assignment",
+                category: "Assignment",
+                subject: "Python",
+                semester: "IIIrd",
+                fileLink: "https://drive.google.com/file/d/sample-link-3",
+                addedDate: "2026-06-20"
+            }
+        ];
+
+        // Function to render the table rows dynamically
+        function renderTable(data) {
+            const tableBody = document.getElementById('resource-table-body');
+            tableBody.innerHTML = '';
+
+            if (data.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 2rem; color: var(--text-muted);">No resources found in the database.</td></tr>`;
+                return;
+            }
+
+            data.forEach((row, index) => {
+                // Add a slight delay to each row for a cascading animation effect
+                const tr = document.createElement('tr');
+                tr.style.animation = `fadeInUp 0.5s ease-out ${index * 0.15}s both`;
+                
+                // Format date cleanly
+                const formattedDate = new Date(row.addedDate).toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric'
+                });
+
+                tr.innerHTML = `
+                    <td style="color: var(--text-muted); font-family: monospace;">${row.id || 'N/A'}</td>
+                    <td style="font-weight: 500;">${row.name}</td>
+                    <td><span class="badge category">${row.category}</span></td>
+                    <td><span class="badge subject">${row.subject}</span></td>
+                    <td><span class="badge semester">${row.semester} Semester</span></td>
+                    <td>
+                        <a href="${row.fileLink}" class="file-link" target="_blank" rel="noopener noreferrer">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="12" y1="18" x2="12" y2="12"></line>
+                                <line x1="9" y1="15" x2="15" y2="15"></line>
+                            </svg>
+                            View File
+                        </a>
+                    </td>
+                    <td class="date-text">${formattedDate}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Fetch Data from our Node.js Proxy Server
+        async function fetchNotionData() {
+            try {
+                // Try fetching from the local proxy server
+                const response = await fetch('http://localhost:3000/api/resources');
+                if (!response.ok) {
+                    throw new Error('API server not responding correctly');
+                }
+                const data = await response.json();
+                console.log("Fetched data from Notion successfully!");
+                renderTable(data);
+                
+                // Update DB ID badge with real database ID if available
+                if (data.length > 0 && data[0].dbId) {
+                    document.querySelector('.db-id-badge').textContent = `DB_ID: ${data[0].dbId}`;
+                }
+            } catch (error) {
+                console.warn("Could not connect to Notion API. Falling back to mock data.", error);
+                renderTable(mockDatabaseRows);
+            }
+        }
+
+        // Initialize table
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchNotionData();
+        });
+    </script>
+</body>
+</html>

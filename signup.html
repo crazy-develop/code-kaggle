@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Unified Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+    body {
+      background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; padding: 20px;
+    }
+    .signup-container {
+      background: white; padding: 40px;
+      border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      width: 100%; max-width: 450px;
+      animation: fadeIn 0.8s ease-out;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    h2 { text-align: center; margin-bottom: 30px; font-size: 2rem; color: #333; }
+    
+    .role-tabs {
+      display: flex; justify-content: space-between; margin-bottom: 25px;
+      background: #f0f0f0; border-radius: 10px; padding: 5px;
+    }
+    .role-tab {
+      flex: 1; text-align: center; padding: 10px; border-radius: 8px; cursor: pointer;
+      font-weight: 600; font-size: 0.9rem; transition: all 0.3s ease; color: #666;
+    }
+    .role-tab.active { background: #00d2ff; color: white; box-shadow: 0 4px 10px rgba(0,210,255,0.3); }
+    
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 500; color: #555; }
+    .form-group input {
+      width: 100%; padding: 11px 15px; border: 1px solid #ddd; border-radius: 10px;
+      font-size: 0.95rem; transition: border-color 0.3s ease;
+    }
+    .form-group input:focus { outline: none; border-color: #00d2ff; box-shadow: 0 0 8px rgba(0,210,255,0.1); }
+    
+    .signup-btn {
+      width: 100%; padding: 13px; border: none; border-radius: 10px;
+      background: #00d2ff; color: white; font-size: 1.1rem; font-weight: 600;
+      cursor: pointer; transition: all 0.3s ease; margin-top: 10px;
+      box-shadow: 0 8px 15px rgba(0,210,255,0.2);
+    }
+    .signup-btn:hover { background: #0099cc; transform: translateY(-3px); box-shadow: 0 12px 20px rgba(0,210,255,0.3); }
+    
+    .login-link { text-align: center; margin-top: 25px; font-size: 0.95rem; color: #666; }
+    .login-link a { color: #00d2ff; text-decoration: none; font-weight: 600; }
+    .login-link a:hover { text-decoration: underline; }
+    
+    #message { text-align: center; margin-top: 15px; font-size: 0.9rem; font-weight: 500; display: none; }
+    .success { color: #047857; }
+    .error { color: #dc2626; }
+  </style>
+  <!-- Session Guard -->
+  <script>
+    if (localStorage.getItem("loggedIn") === "true") {
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="signup-container">
+    <div id="google_translate_element" style="text-align: right; margin-bottom: 15px;"></div>
+    <h2 id="signupTitle">Create Account</h2>
+    
+    <div class="role-tabs">
+      <div class="role-tab active" onclick="setRole('student')">Student</div>
+      <div class="role-tab" onclick="setRole('ngo')">NGO</div>
+      <div class="role-tab" id="parentTab" onclick="setRole('parent')">Parent</div>
+    </div>
+    
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="fullname" placeholder="Dushyant Saini" required>
+    </div>
+    <div class="form-group">
+      <label>Email Address</label>
+      <input type="email" id="email" placeholder="example@mail.com" required>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="password" placeholder="********" required>
+    </div>
+    
+    <button class="signup-btn" id="signupBtn">Sign Up</button>
+    <div id="message"></div>
+    
+    <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    
+    let currentRole = 'student';
+    
+    window.setRole = (role) => {
+      currentRole = role;
+      document.querySelectorAll('.role-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if(tab.innerText.toLowerCase() === role) tab.classList.add('active');
+        if(role === 'parent' && tab.innerText === 'Parent') tab.classList.add('active');
+      });
+      document.getElementById('signupTitle').innerText = `Sign Up as ${role.charAt(0).toUpperCase() + role.slice(1)}`;
+    };
+
+    const configs = {
+      student: './firebaseConfig/studentConfig.js',
+      ngo: './firebaseConfig/ngoConfig.js',
+      parent: './firebaseConfig/govConfig.js'
+    };
+
+    document.getElementById("signupBtn").addEventListener("click", async () => {
+      const name = document.getElementById("fullname").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const msgDiv = document.getElementById("message");
+
+      if (!name || !email || !password) {
+        msgDiv.innerText = "Please fill in all fields.";
+        msgDiv.className = "error";
+        msgDiv.style.display = "block";
+        return;
+      }
+
+      try {
+        msgDiv.innerText = "Connecting to Firebase...";
+        msgDiv.className = "";
+        msgDiv.style.display = "block";
+
+        // Load config
+        let configData;
+        try {
+          configData = await import(configs[currentRole]);
+        } catch (e) {
+          throw new Error("Configuration file for " + currentRole + " could not be loaded. Check if the file exists in /firebaseConfig/");
+        }
+        
+        const { firebaseConfig } = configData;
+        const appName = "suvidha_" + currentRole;
+        let app = getApps().find(a => a.name === appName);
+        if (!app) app = initializeApp(firebaseConfig, appName);
+        
+        const auth = getAuth(app);
+        msgDiv.innerText = "Creating your account...";
+
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        
+        await updateProfile(userCredential.user, {
+          displayName: name
+        });
+        
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("userRole", currentRole);
+        localStorage.setItem("userEmail", email);
+        
+        msgDiv.innerText = "Account created! Redirecting to Dashboard...";
+        msgDiv.className = "success";
+        msgDiv.style.display = "block";
+        
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 1500);
+
+      } catch (error) {
+        console.error("Full Signup Error Object:", error);
+        
+        let friendlyMsg = error.message;
+        if (error.code === 'auth/email-already-in-use') {
+          friendlyMsg = "This email is already registered. Please Login instead.";
+        } else if (error.code === 'auth/weak-password') {
+          friendlyMsg = "Password is too weak. Please use at least 6 characters.";
+        } else if (error.code === 'auth/operation-not-allowed') {
+          friendlyMsg = "Signups are disabled. Please enable 'Email/Password' in Firebase Console.";
+        } else if (error.code === 'auth/invalid-email') {
+          friendlyMsg = "The email address is not valid.";
+        }
+
+        msgDiv.innerText = "Signup Error: " + friendlyMsg;
+        msgDiv.className = "error";
+        msgDiv.style.display = "block";
+      }
+    });
+  </script>
+  <!-- Google Translate -->
+  <script src="translate.js"></script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
+

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complete Your Booking - Suvidha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00bfa6;
+      --secondary: #2563eb;
+      --bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .booking-card {
+      background: white;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+
+    p {
+      color: #64748b;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .summary-box {
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: 16px;
+      margin: 30px 0;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .summary-row.total {
+      border-top: 1px solid #cbd5e1;
+      padding-top: 10px;
+      font-weight: 800;
+      color: var(--primary);
+      font-size: 1.2rem;
+    }
+
+    .connect-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #00bfa6, #2563eb);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .connect-btn:hover {
+      transform: scale(1.02);
+      filter: brightness(1.1);
+    }
+
+    .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #64748b;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <div class="booking-card" id="main-card">
+    <h1>Confirm Your Session</h1>
+    <p>Talk to our top industry experts from Google, Microsoft, and Meta.</p>
+
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="user-name" placeholder="Enter your full name" required>
+    </div>
+
+    <div class="form-group">
+      <label>Session Goal</label>
+      <select id="session-type">
+        <option value="500">Career Strategy (₹500)</option>
+        <option value="550" selected>Mock Interview (₹550)</option>
+        <option value="600">Deep Dive Technical (₹600)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Your Main Query</label>
+      <textarea id="query" rows="3" placeholder="What specific problem can we solve today?"></textarea>
+    </div>
+
+    <div class="summary-box">
+      <div class="summary-row">
+        <span>Session Fee:</span>
+        <span id="display-fee">₹550</span>
+      </div>
+      <div class="summary-row">
+        <span>Platform Connection:</span>
+        <span>FREE</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total Payable:</span>
+        <span id="total-fee">₹550</span>
+      </div>
+    </div>
+
+    <button class="connect-btn" onclick="startChat()">Confirm & Start Suvidha Connect</button>
+    <a href="index.html" class="back-btn">Go Back</a>
+    <a href="https://www.whatin.in/" class="back-btn" style="color:var(--primary); margin-top:10px;">Academic 🎓</a>
+  </div>
+
+  <div class="booking-card" id="success-card" style="display: none; text-align: center;">
+    <div style="font-size: 4rem; margin-bottom: 20px;">✅</div>
+    <h1>Request Sent!</h1>
+    <p>Opening Suvidha Live Chat for your session with the Expert.</p>
+    <button class="connect-btn" onclick="window.location.href='index.html'">Finish</button>
+  </div>
+
+  <script>
+    const feeSelect = document.getElementById('session-type');
+    const displayFee = document.getElementById('display-fee');
+    const totalFee = document.getElementById('total-fee');
+
+    feeSelect.addEventListener('change', () => {
+      const fee = feeSelect.value;
+      displayFee.textContent = '₹' + fee;
+      totalFee.textContent = '₹' + fee;
+    });
+
+    function startChat() {
+      const name = document.getElementById('user-name').value;
+      if (!name) {
+        alert("Please enter your name first.");
+        return;
+      }
+      
+      document.getElementById('main-card').style.display = 'none';
+      document.getElementById('success-card').style.display = 'block';
+
+      // Redirect to Tawk.to
+      setTimeout(() => {
+        window.open('https://tawk.to/chat/69b4f058406cbe1c37cf1ef8/1jjlclncf', '_blank');
+      }, 1500);
+    }
+  </script>
+
+  <!-- tawk support -->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/69b4f058406cbe1c37cf1ef8/1jjlclncf';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+</body>
+
+</html>
+

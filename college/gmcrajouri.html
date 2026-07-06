@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GMC Rajouri - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; color: #1f2937; line-height: 1.6; }
+        .container { max-width: 1100px; background-color: #fff; margin: auto; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1); }
+        .header { display: flex; align-items: center; padding: 30px; background: linear-gradient(135deg, #7f1d1d, #b91c1c); color: #fff; }
+        .header img { width: 70px; height: 70px; border-radius: 12px; margin-right: 25px; border: 3px solid rgba(255,255,255,0.2); }
+        .header h1 { font-size: 26px; font-weight: 800; }
+        .header .meta { margin-top: 6px; font-size: 15px; opacity: 0.9; font-weight: 500; }
+        .banner { height: 250px; background-image: url('../college images/Government Medical College (GMC).jpg'); background-size: cover; background-position: center; position: relative; }
+        .banner::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.2); }
+        
+        .tabs { display: flex; justify-content: space-around; background-color: #ffffff; border-bottom: 2px solid #f1f5f9; position: sticky; top: 0; z-index: 10; }
+        .tabs div { padding: 18px 25px; cursor: pointer; font-weight: 700; color: #64748b; font-size: 15px; border-bottom: 3px solid transparent; transition: 0.3s; }
+        .tabs div.active { color: #dc2626; border-bottom-color: #dc2626; }
+        
+        .content { padding: 40px; display: none; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; animation: fadeIn 0.5s ease-out; }
+        .content.active-section { display: grid; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card { background: #f8fafc; padding: 25px; border-radius: 16px; border: 1px solid #e2e8f0; }
+        .card h3 { margin-bottom: 20px; color: #0f172a; font-size: 20px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .info-item { margin-bottom: 12px; display: flex; justify-content: space-between; font-size: 15px; }
+        .info-label { font-weight: 700; color: #64748b; }
+        .info-value { font-weight: 600; color: #1e293b; text-align: right; }
+        
+        .table-responsive { overflow-x: auto; grid-column: span 2; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border-radius: 12px; overflow: hidden; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+        th { background: #fef2f2; font-weight: 700; color: #991b1b; }
+
+        .tag-group { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background: #fff; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; color: #475569; }
+
+        .contact-box { background: #450a0a; color: white; padding: 40px; border-radius: 20px; grid-column: span 2; }
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; }
+        .contact-item a { color: #f87171; text-decoration: none; font-weight: 600; }
+
+        .apply-bar { text-align: center; padding: 40px; background: #fff; border-top: 1px solid #f1f5f9; }
+        .apply-btn { background: #dc2626; color: #fff; padding: 16px 40px; font-size: 18px; font-weight: 800; border: none; border-radius: 12px; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 20px rgba(220, 38, 38, 0.2); }
+        .apply-btn:hover { background: #b91c1c; transform: translateY(-3px); }
+    </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://entranceforms.com/frontend/images/gmc_logo.jpeg" alt="GMC Logo">
+            <div>
+                <h1>Government Medical College (GMC) Rajouri</h1>
+                <div class="meta">Mehra, Rajouri, J&K • Estd. 2019 • NMC Approved</div>
+            </div>
+        </div>
+
+        <div class="banner"></div>
+
+        <div class="tabs">
+            <div class="active" onclick="switchTab(0)">Overview</div>
+            <div onclick="switchTab(1)">Courses & Seats</div>
+            <div onclick="switchTab(2)">Facilities</div>
+            <div onclick="switchTab(3)">Admissions</div>
+        </div>
+
+        <!-- Overview -->
+        <div class="content active-section" id="sec-0">
+            <div class="card">
+                <h3>🏛️ Institutional Profile</h3>
+                <p style="font-size: 15px; color: #475569; margin-bottom: 20px;">Rajouri ka pramukh medical college, medical education ko boost karne ke liye 2019 mein establish kiya gaya. University of Jammu se affiliated aur NMC approved.</p>
+                <div class="info-item"><span class="info-label">ESTABLISHED</span><span class="info-value">2019</span></div>
+                <div class="info-item"><span class="info-label">TYPE</span><span class="info-value">Government State College</span></div>
+                <div class="info-item"><span class="info-label">AFFILIATION</span><span class="info-value">University of Jammu</span></div>
+            </div>
+            <div class="card">
+                <h3>📋 Vital Stats</h3>
+                <div class="info-item"><span class="info-label">CAMPUS AREA</span><span class="info-value">25-30 Acres</span></div>
+                <div class="info-item"><span class="info-label">BED STRENGTH</span><span class="info-value">300+ Beds (Associated Hosp.)</span></div>
+            </div>
+        </div>
+
+        <!-- Courses & Seats -->
+        <div class="content" id="sec-1">
+            <div class="table-responsive">
+                <h3>🎓 Medical Programs</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Seats</th>
+                            <th>Duration</th>
+                            <th>Annual Fee (Approx)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><b>MBBS</b></td><td>115</td><td>4.5 Yrs + 1 Yr Internship</td><td>₹26,000 - ₹30,000</td></tr>
+                        <tr><td><b>B.Sc Nursing</b></td><td>60</td><td>4 Years</td><td>₹15,000 - ₹20,000</td></tr>
+                        <tr><td><b>Paramedical</b></td><td>Varies</td><td>2-3 Years</td><td>₹10,000 - ₹15,000</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card" style="grid-column: span 2;">
+                <h3>🛡️ Key Departments</h3>
+                <div class="tag-group">
+                    <span class="tag">Anatomy</span><span class="tag">Physiology</span>
+                    <span class="tag">Biochemistry</span><span class="tag">Pathology</span>
+                    <span class="tag">Microbiology</span><span class="tag">Pharmacology</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facilities -->
+        <div class="content" id="sec-2">
+            <div class="card" style="grid-column: span 2;">
+                <h3>🏢 Healthcare Infrastructure</h3>
+                <ul style="list-style: none; display: grid; gap: 15px;">
+                    <li class="tag"><b>Associated Hospital:</b> 300+ beds wala functional hospital clinical training ke liye.</li>
+                    <li class="tag"><b>Central Library:</b> Medical journals, textbooks aur e-library facility.</li>
+                    <li class="tag"><b>Hostels:</b> Boys aur Girls ke liye separate secure hostels.</li>
+                    <li class="tag"><b>Labs:</b> Anatomy, Physiology aur Biochemistry ke high-tech labs.</li>
+                    <li class="tag"><b>Smart Halls:</b> Smart classrooms with Projectors/Speakers.</li>
+                    <li class="tag"><b>Co-curricular:</b> Auditorium aur Gym facility.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Admissions -->
+        <div class="content" id="sec-3">
+            <div class="contact-box">
+                <h3 style="color: white; margin-bottom: 25px;">🛠️ Admission Trigger</h3>
+                <ul style="margin-bottom: 30px; font-size: 15px; color: #fecaca; list-style: square; padding-left: 20px;">
+                    <li><b>NEET-UG:</b> MBBS admissions ke liye NEET-UG qualify karna mandatory hai.</li>
+                    <li><b>Seat Pool:</b> 15% All India Quota (AIQ) & 85% State Quota (JKBOPEE).</li>
+                </ul>
+                <div class="contact-grid">
+                    <div class="contact-item"><b>🌐 Website:</b> <a href="https://www.gmcrajouri.in">gmcrajouri.in</a></div>
+                    <div class="contact-item"><b>📧 Email:</b> <a href="mailto:gmcrajouri@gmail.com">gmcrajouri@gmail.com</a></div>
+                    <div class="contact-item"><b>📞 Phone:</b> <a>01962-263209</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="apply-bar">
+            <button class="apply-btn" onclick="alert('NEET-JKBOPEE Counselling portal will open for GMC Rajouri.')">Apply via JKBOPEE</button>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(index) {
+            document.querySelectorAll('.tabs div').forEach((t, i) => {
+                t.classList.toggle('active', i === index);
+            });
+            document.querySelectorAll('.content').forEach((c, i) => {
+                c.classList.toggle('active-section', i === index);
+                c.style.display = i === index ? 'grid' : 'none';
+            });
+        }
+    </script>
+</body>
+
+</html>
+

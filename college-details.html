@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Details - Suvidha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; color: #1f2937; }
+    
+    .loading-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #f3f4f6; display: flex; justify-content: center; align-items: center; z-index: 999; font-size: 1.5rem; color: #374151; font-weight: 600; }
+    
+    .container { max-width: 1100px; background-color: #fff; margin: auto; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); display: none; }
+    
+    .header { display: flex; align-items: center; padding: 20px; background: linear-gradient(135deg, #003366, #005999); color: #fff; }
+    .header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 20px; object-fit: cover; }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .header .meta { margin-top: 4px; font-size: 14px; opacity: 0.85; }
+    
+    .banner { height: 250px; background-size: cover; background-position: center; }
+    
+    .tabs { display: flex; justify-content: space-around; background-color: #f9fafb; border-top: 1px solid #e5e7eb; border-bottom: 1px solid #e5e7eb; position: relative; }
+    .tabs div { padding: 12px 20px; cursor: pointer; font-weight: 600; color: #374151; position: relative; transition: color 0.3s ease; }
+    .tabs div.active { color: #2563eb; }
+    .tabs div.active::after { content: ''; position: absolute; bottom: 0; left: 0; height: 3px; width: 100%; background-color: #2563eb; border-radius: 3px 3px 0 0; }
+    
+    .content { padding: 30px; display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease, transform 0.4s ease; }
+    .content.active-section { display: grid; opacity: 1; transform: translateY(0); }
+    
+    .card { background-color: #f9fafb; padding: 20px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); }
+    .card h3 { margin-bottom: 15px; color: #111827; font-size: 18px; }
+    .stats-list p, .fees-list p { margin: 8px 0; font-size: 15px; }
+    
+    .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .tag { background-color: #e0e7ff; color: #3730a3; padding: 6px 14px; border-radius: 20px; font-size: 14px; font-weight: 500; }
+    
+    .placements-stats { display: flex; justify-content: space-around; width: 100%; margin-bottom: 30px; text-align: center; }
+    .placement-card { background-color: #f9fafb; padding: 30px; border-radius: 12px; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); width: 100%; }
+    .placement-card h2 { font-size: 48px; font-weight: 700; margin-bottom: 10px; color: #059669; }
+    
+    .actions { padding: 20px; text-align: center; }
+    .apply-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; padding: 14px 28px; font-size: 16px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s ease; }
+    .apply-btn:hover { background: linear-gradient(135deg, #1d4ed8, #1e3a8a); }
+    .back-link { display: inline-block; margin-bottom: 15px; color: #2563eb; text-decoration: none; font-weight: 600; }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <a href="colleges.html" class="back-link">← Back to Colleges</a>
+  <div class="loading-overlay" id="loading">Loading College Details...</div>
+
+  <div class="container" id="college-container">
+    <div class="header">
+      <img id="col-logo" src="https://via.placeholder.com/60" alt="Logo">
+      <div>
+        <h1 id="col-name">College Name</h1>
+        <div class="meta"><span id="col-location">Location</span> • ⭐ <span id="col-rating">4.0</span></div>
+      </div>
+    </div>
+
+    <div class="banner" id="col-banner"></div>
+
+    <div class="tabs">
+      <div class="active" onclick="switchTab(0)">Overview</div>
+      <div onclick="switchTab(1)">Academics</div>
+      <div onclick="switchTab(2)">Placements</div>
+    </div>
+
+    <div class="content active-section" id="overview-section">
+      <div class="card">
+        <h3>🎓 Key Statistics</h3>
+        <div class="stats-list">
+          <p><strong>Ranking:</strong> #<span id="stat-rank">-</span></p>
+          <p><strong>Total Students:</strong> <span id="stat-students">-</span></p>
+          <p><strong>Faculty Members:</strong> <span id="stat-faculty">-</span></p>
+          <p><strong>PhD Faculty:</strong> <span id="stat-phd">-</span>%</p>
+        </div>
+      </div>
+      <div class="card">
+        <h3>💰 Fees Structure</h3>
+        <div class="fees-list">
+          <p><strong>Undergraduate:</strong> <span id="fee-ug">-</span></p>
+          <p><strong>Postgraduate:</strong> <span id="fee-pg">-</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="content" id="academics-section">
+        <div class="card" style="grid-column: span 2;">
+          <h3>📘 Courses Offered</h3>
+          <div class="tags" id="courses-list">
+            <!-- Courses populated here -->
+          </div>
+        </div>
+    </div>
+    
+    <div class="content" id="placements-section">
+        <div class="placements-stats">
+          <div class="placement-card">
+              <h2 id="placement-rate">0%</h2>
+              <p>Placement Rate</p>
+          </div>
+        </div>
+    </div>
+
+    <div class="actions">
+      <button class="apply-btn">Apply Now</button>
+    </div>
+  </div>
+
+  <script>
+    const mockColleges = [
+        {
+            id: "mock-1", name: "Sanskriti University", location: "Mathura", rating: 4.9,
+            imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=800",
+            ranking: 1, students: 8500, faculty: 450, phdFaculty: 95,
+            ugFees: "₹2,50,000", pgFees: "₹3,00,000", placementRate: 98,
+            courses: ["B.Tech", "MBA", "BCA", "BBA"]
+        }
+    ];
+
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function populateUI(data) {
+        document.title = `${data.name} - Suvidha`;
+        document.getElementById('col-name').innerText = data.name;
+        document.getElementById('col-location').innerText = data.location;
+        document.getElementById('col-rating').innerText = data.rating;
+        document.getElementById('col-logo').src = data.imageUrl;
+        document.getElementById('col-banner').style.backgroundImage = `url('${data.imageUrl}')`;
+        
+        document.getElementById('stat-rank').innerText = data.ranking;
+        document.getElementById('stat-students').innerText = data.students;
+        document.getElementById('stat-faculty').innerText = data.faculty;
+        document.getElementById('stat-phd').innerText = data.phdFaculty;
+        
+        document.getElementById('fee-ug').innerText = data.ugFees;
+        document.getElementById('fee-pg').innerText = data.pgFees;
+        document.getElementById('placement-rate').innerText = `${data.placementRate}%`;
+
+        const coursesList = document.getElementById('courses-list');
+        coursesList.innerHTML = '';
+        if (data.courses && data.courses.length > 0) {
+            data.courses.forEach(course => {
+                const span = document.createElement('span');
+                span.className = 'tag';
+                span.innerText = course;
+                coursesList.appendChild(span);
+            });
+        } else {
+            coursesList.innerHTML = '<span class="tag">Contact for details</span>';
+        }
+
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('college-container').style.display = 'block';
+    }
+
+    async function fetchCollegeDetails() {
+        const id = getQueryParam('id') || 'mock-1';
+        
+        try {
+            const response = await fetch('http://localhost:3000/api/colleges');
+            if (!response.ok) throw new Error('API server not responding');
+            const dataList = await response.json();
+            
+            const college = dataList.find(c => c.id === id);
+            if (college) populateUI(college);
+            else populateUI(mockColleges[0]); // Fallback if ID not found
+        } catch (error) {
+            console.warn("API Error, falling back to mock data.", error);
+            populateUI(mockColleges[0]);
+        }
+    }
+
+    // Tabs Logic
+    const tabs = document.querySelectorAll(".tabs div");
+    const sections = [
+      document.getElementById("overview-section"),
+      document.getElementById("academics-section"),
+      document.getElementById("placements-section")
+    ];
+
+    function switchTab(index) {
+        tabs.forEach(t => t.classList.remove("active"));
+        tabs[index].classList.add("active");
+        
+        sections.forEach(sec => {
+          sec.classList.remove("active-section");
+          sec.style.display = "none";
+        });
+        
+        sections[index].style.display = "grid";
+        requestAnimationFrame(() => {
+            sections[index].classList.add("active-section");
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchCollegeDetails);
+  </script>
+</body>
+</html>

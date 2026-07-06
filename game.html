@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Explorer Game - Suvidha | Mentorship Platform</title>
+    <!-- Same font as mentors.html -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #047857;
+            --color-secondary: #0891b2;
+            --color-accent: #f59e0b;
+            --color-background: #f7fafc;
+            --color-white: #ffffff;
+            --color-text-dark: #1f2937;
+            --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.09);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--color-background);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            padding-top: 110px; /* Offset for dual-row navbar */
+            overflow-x: hidden;
+        }
+
+        /* Same NAVBAR as mentors.html */
+        nav {
+            background: var(--color-white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-content {
+            max-width: 1200px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .translate-row {
+            background: #f1f5f9;
+            padding: 6px 24px;
+            display: flex;
+            justify-content: flex-end;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-main-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 24px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-primary);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 28px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        nav ul li a:hover { color: var(--color-primary); }
+
+        /* GAME AREA */
+        .game-wrapper {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .header-section h1 {
+            font-size: 38px;
+            color: var(--color-primary);
+            margin-bottom: 10px;
+        }
+
+        .header-section p {
+            font-size: 18px;
+            color: #64748b;
+        }
+
+        .game-card {
+            background: var(--color-white);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: url('career_game_bg_1774953709648.png'); /* The generated background */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Overlay for card readability */
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.9);
+            z-index: 1;
+        }
+
+        .game-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        /* INTERACTIVE ELEMENTS */
+        .path-node {
+            display: inline-block;
+            background: var(--color-white);
+            border: 2px solid var(--color-primary);
+            border-radius: 16px;
+            padding: 20px 30px;
+            margin: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 18px;
+            width: 280px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .path-node:hover {
+            transform: translateY(-8px) scale(1.05);
+            background: var(--color-primary);
+            color: var(--color-white);
+            box-shadow: 0 12px 20px rgba(4, 120, 87, 0.2);
+        }
+
+        .path-node i {
+            display: block;
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            margin-top: 40px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        /* RESULT SCREEN */
+        .result-screen {
+            display: none;
+            text-align: center;
+        }
+
+        .result-screen h2 {
+            font-size: 32px;
+            color: var(--color-primary);
+            margin-bottom: 20px;
+        }
+
+        .result-badge {
+            background: #fef3c7;
+            color: #b45309;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .career-recommendation {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-secondary);
+            margin: 20px 0;
+            padding: 20px;
+            background: #f0f9ff;
+            border-radius: 12px;
+            border: 2px dashed var(--color-secondary);
+        }
+
+        .cta-buttons {
+            margin-top: 30px;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 14px 34px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background: #065f46;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--color-primary);
+            color: var(--color-primary);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            background: var(--color-text-dark);
+            color: var(--color-white);
+            padding: 40px 20px 20px 20px;
+            text-align: center;
+            border-radius: 36px 36px 0 0;
+            margin-top: 60px;
+        }
+    </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Same NAVBAR as mentors.html -->
+    <nav>
+        <div class="nav-content">
+            <div class="translate-row">
+                <div id="google_translate_element"></div>
+            </div>
+            <div class="nav-main-row">
+                <a href="index.html" class="logo">Suvidha</a>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="mentors.html">Mentors</a></li>
+                    <li><a href="career.html">Career</a></li>
+                    <li><a href="testimonials.html">Testimonials</a></li>
+                    <li><a href="https://www.whatin.in/">Academic</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="game-wrapper">
+        <div class="header-section">
+            <h1>करियर पहेली - Career Puzzle 🧩</h1>
+            <p>अपने भविष्य के सही मार्ग को खोजने के लिए एक रोमांचक खेल खेलें!</p>
+        </div>
+
+        <div class="game-card">
+            <div class="game-content" id="gameArea">
+                <!-- H5P Puzzle Inbuilt -->
+                <div style="background: white; border-radius: 12px; padding: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    <iframe src="https://h5p.org/h5p/embed/1559383" width="100%" height="800" frameborder="0" allowfullscreen="allowfullscreen" allow="geolocation *; microphone *; camera *; midi *; encrypted-media *" title="Suvidha Puzzle gaming"></iframe>
+                    <script src="https://h5p.org/sites/all/modules/h5p/library/js/h5p-resizer.js" charset="UTF-8"></script>
+                </div>
+
+                <div class="cta-buttons" style="margin-top: 30px;">
+                    <a href="mentors.html" class="btn btn-primary">Find a Mentor</a>
+                    <a href="index.html" class="btn btn-outline" style="border: 2px solid var(--color-primary); color: var(--color-primary); text-decoration: none; padding: 14px 34px; border-radius: 12px; font-weight: 600;">Go to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Suvidha Career Explorer. Made with ❤️ for Students.</p>
+    </footer>
+
+    <!-- Scripts for translate and layout -->
+    <script src="translate.js"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
+

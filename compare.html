@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Premium Institution Comparison - Suvidha</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #00bfa6;
+      --secondary: #0f172a;
+      --accent: #0284c7;
+      --bg: #fdfdfd;
+      --card-bg: #ffffff;
+      --text: #334155;
+      --border: #e2e8f0;
+      --green: #10b981;
+      --red: #ef4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* Professional Navbar Mockup */
+    nav {
+      background: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo { font-size: 1.5rem; font-weight: 800; color: var(--secondary); letter-spacing: -1px; }
+
+    /* Comparison Hero */
+    .compare-hero {
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      padding: 80px 0 160px;
+      text-align: center;
+      margin-bottom: -100px;
+    }
+
+    .compare-hero h1 { font-size: 3.5rem; margin-bottom: 15px; font-weight: 700; }
+    .compare-hero p { font-size: 1.25rem; opacity: 0.8; max-width: 700px; margin: 0 auto; }
+
+    /* Main Comparison Grid Card */
+    .main-grid-card {
+      background: white;
+      border-radius: 24px;
+      padding: 50px;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+      overflow-x: auto;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 15px;
+    }
+
+    .comparison-table th {
+      background: #f8fafc;
+      padding: 24px;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      border-radius: 12px 0 0 12px;
+    }
+
+    .comparison-table td {
+      padding: 24px;
+      background: #ffffff;
+      border-top: 1px solid #f1f5f9;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 1.05rem;
+      color: var(--secondary);
+      text-align: center;
+    }
+
+    .comparison-table td:last-child {
+      border-right: 1px solid #f1f5f9;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .inst-card-header {
+      padding: 20px;
+    }
+
+    .inst-card-header img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .inst-card-header h2 {
+      font-size: 1.5rem;
+      color: var(--secondary);
+      margin-bottom: 5px;
+    }
+
+    .inst-card-header .type-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e0f2fe;
+      color: #0369a1;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 20px;
+    }
+
+    /* Value Comparison Styles */
+    .highlight-win { font-weight: 700; color: var(--green); }
+    .rating-badge { background: #fef3c7; color: #d97706; padding: 4px 10px; border-radius: 8px; font-weight: 700; }
+
+    /* Performance Charts Container */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 30px;
+      margin-top: 60px;
+      margin-bottom: 60px;
+    }
+
+    .panel {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      border: 1px solid #f1f5f9;
+    }
+
+    .panel h3 {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .panel h3::before {
+      content: '';
+      width: 5px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 10px;
+    }
+
+    /* Floating Action / Back */
+    .btn-back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 25px;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.3s;
+      margin-bottom: 40px;
+    }
+
+    .btn-back-home:hover { background: rgba(255,255,255,0.2); }
+
+    .empty-state {
+      text-align: center;
+      padding: 120px 0;
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 0 20px; }
+      .compare-hero h1 { font-size: 2.2rem; }
+      .panel { padding: 20px; }
+    }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <header class="compare-hero">
+    <div class="container">
+      <a href="index.html" class="btn-back-home">← Back to Exploration</a>
+      <a href="jobs.html" class="btn-back-home" style="margin-left:20px; background:rgba(255,255,255,0.1)">💼 Opportunities</a>
+      <a href="solver.html" class="btn-back-home" style="margin-left:20px; background:rgba(0,191,166,0.3)">✨ AI Solver</a>
+      <a href="https://www.whatin.in/" class="btn-back-home" style="margin-left:20px; background:rgba(0,124,145,0.3)">🎓 Academic</a>
+      <h1>Institution Intelligence</h1>
+      <p>Data-driven comparison between your selected premier institutions to help you decide your future path with precision.</p>
+    </div>
+  </header>
+
+  <div class="container" id="main-content">
+    
+    <div id="comparison-area" class="main-grid-card">
+      <!-- Generated via JS -->
+    </div>
+
+    <!-- Analytics Dashboard -->
+    <div class="dashboard-grid" id="analytics-grid">
+       <!-- Generated via JS -->
+    </div>
+
+  </div>
+
+  <script>
+    const institutionData = {
+      "IIT Jammu": { fees: 250000, size: 400, established: "2016", rating: "4.9", type: "Engineering", accreditation: "Premier (MoE)", city: "Jammu", placements: 88, faculty: 150, intake: 1200, facilities: "Hostel, Labs, Sports, Innovation Hub", img: "https://share.google/images/JDmCy7MCwh4K3zaxU" },
+      "Shri Mata Vaishno Devi Univ.": { fees: 229000, size: 470, established: "1999", rating: "4.7", type: "Technical", accreditation: "NAAC A", city: "Katra", placements: 75, faculty: 210, intake: 3500, facilities: "Residential, Central Library, Auditoriums", img: "https://share.google/images/mhQ2NRTpDTnZKv2Xc" },
+      "University of Jammu": { fees: 45000, size: 175, established: "1969", rating: "4.8", type: "General", accreditation: "NAAC A+", city: "Jammu", placements: 60, faculty: 450, intake: 8000, facilities: "Labs, Museums, Heritage Buildings, Sports", img: "univ_jammu_building_1774956817912.png" },
+      "The Business School (TBS)": { fees: 78000, size: 25, established: "1987", rating: "4.8", type: "Management", accreditation: "AICTE", city: "Jammu", placements: 92, faculty: 45, intake: 300, facilities: "Smart Classrooms, Corporate Connect, Seminar Halls", img: "https://share.google/images/PtQRXcWyc5kHrTYO3" },
+      "Government Medical College (GMC)": { fees: 65000, size: 50, established: "1973", rating: "4.7", type: "Medical", accreditation: "MCI", city: "Jammu", placements: 95, faculty: 300, intake: 1500, facilities: "Specialized Wards, Research Labs, Library", img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d" },
+      "MIET Jammu": { fees: 85000, size: 25, established: "1996", rating: "4.6", type: "Technical", accreditation: "NAAC A", city: "Jammu", placements: 85, faculty: 120, intake: 600, facilities: "Incubation Center, Tech Labs, Gym, Library", img: "https://share.google/images/eyUAJtjEd6Z9GoSwo" },
+      "GDC Rajouri": { fees: 5000, size: 10, established: "1981", rating: "4.1", type: "Degree College", accreditation: "NAAC", city: "Rajouri", placements: 40, faculty: 60, intake: 1200, facilities: "Academics Focus, Extracurricular, Merit Admissions", img: "https://share.google/images/fiMCXMUuqI2wKvBDv" },
+      "Valley View Institute (Sunderbani)": { fees: 35000, size: 5, established: "2001", rating: "4.2", type: "Education College", accreditation: "NCTE", city: "Sunderbani", placements: 50, faculty: 25, intake: 400, facilities: "BA/B.Com/BCA Courses, Teacher Training Focus, State Govt. Affiliation", img: "https://share.google/images/Bi0mWf3dmYSIEcEfy" },
+      "GDC Budhal": { fees: 4500, size: 15, established: "2008", rating: "4.2", type: "Degree College", accreditation: "NAAC", city: "Budhal", placements: 35, faculty: 45, intake: 1000, facilities: "Smart Classrooms, WiFi Campus, NCC/NSS Units, Science Labs", img: "https://share.google/images/eXPZ6x80psEACA9ek" },
+      "Central University of Jammu": { fees: 55000, size: 610, established: "2011", rating: "4.7", type: "Central Univ.", accreditation: "UGC", city: "Samba", placements: 70, faculty: 180, intake: 3000, facilities: "Modern Campus, Smart Classrooms, Research Labs", img: "https://share.google/images/HYUsMyZao9HZyHcBZ" },
+      "BEE ENN College of Nursing": { fees: 300000, size: 10, established: "1998", rating: "4.6", type: "Nursing", accreditation: "INC", city: "Jammu", placements: 98, faculty: 55, intake: 400, facilities: "Clinical Skills Lab, Community Health Hub", img: "https://share.google/images/9MuqhVlwMIbF5OWKp" },
+      "Baba Ghulam Shah Badshah Univ.": { fees: 180000, size: 450, established: "2002", rating: "4.6", type: "University", accreditation: "UGC", city: "Rajouri", placements: 68, faculty: 190, intake: 2500, facilities: "Botanical Garden, Sports, Residential Complex", img: "bgsbu_rajouri_campus_1774956839858.png" },
+      "Government Medical College": { fees: 60000, size: 45, established: "2019", rating: "4.6", type: "Medical", accreditation: "MCI", city: "Rajouri", placements: 94, faculty: 140, intake: 600, facilities: "Emergency Services, Clinical Labs, Smart Learning", img: "https://images.unsplash.com/photo-1586773860418-d37222d8fce2" },
+      "Sanskriti University": { fees: 150000, size: 40, established: "2016", rating: "4.5", type: "University", accreditation: "UGC", city: "Mathura", placements: 85, faculty: 250, intake: 4000, facilities: "Large Library, Sports Complex, Skill Centers", img: "https://entranceforms.com/frontend/images/1735397702_back.jpeg" },
+      "Jodhamal Public School": { fees: 120000, size: 15, established: "1979", rating: "4.9", type: "K-12 School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 85, intake: 2000, facilities: "Smart Labs, Art Studio, Music Room, Playground", img: "https://share.google/images/E1eA1pw1sY8Duu3rI" },
+      "Heritage School": { fees: 95000, size: 10, established: "2007", rating: "4.8", type: "K-12 School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 70, intake: 1500, facilities: "Computer Lab, EVS Lab, Career Council, Sports Hub", img: "https://share.google/images/kGAIWmGx6AP0bJRyR" },
+      "K.R Girls Inter College": { fees: 25000, size: 5, established: "1960", rating: "4.2", type: "K-12 School", accreditation: "State Board", city: "Mathura", placements: 0, faculty: 30, intake: 800, facilities: "Classrooms, Library, Playground", img: "https://i.ytimg.com/vi/xS7psYIIadM/maxresdefault.jpg" },
+      "Jawahar Navodaya Vidyalaya": { fees: 12000, size: 30, established: "1986", rating: "4.5", type: "Residential School", accreditation: "CBSE", city: "Uduvally", placements: 0, faculty: 45, intake: 500, facilities: "Mess, Hostels, Sports, Science Labs", img: "https://content.jdmagicbox.com/v2/comp/chitradurga/y1/9999p8194.8194.220612230402.h4y1/catalogue/jawahar-navodaya-vidyalaya-uduvally-chitradurga-boarding-schools-elyjpfvk3x.jpg" },
+      "KC International School": { fees: 85000, size: 12, established: "2004", rating: "4.7", type: "K-12 School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 65, intake: 1800, facilities: "Smart Classrooms, Sports Center, Science Labs", img: "https://share.google/images/4HN0uB4mmu2C7dp4j" },
+      "JK Public School": { fees: 90000, size: 14, established: "1992", rating: "4.8", type: "K-12 School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 75, intake: 2100, facilities: "Digital Library, Swimming Pool, Auditorium", img: "https://share.google/images/94qxfGDUkSDXEzVg0" },
+      "APS Jammu Cantt": { fees: 45000, size: 18, established: "1984", rating: "4.8", type: "Army School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 90, intake: 2500, facilities: "Auditorium, Playgrounds, Science Labs, Library", img: "https://share.google/images/4Doa1MDhvQGzEcB7M" },
+      "APS Kaluchak": { fees: 42000, size: 20, established: "1980", rating: "4.8", type: "Army School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 85, intake: 2300, facilities: "Sports Complex, Value Education Hub, Modern Classrooms", img: "https://share.google/images/wZQxNrGPrI7T6lqHI" },
+      "APS Damana": { fees: 43000, size: 15, established: "1986", rating: "4.7", type: "Army School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 80, intake: 2000, facilities: "Smart Labs, Botanical Garden, Sports Ground", img: "https://share.google/images/DgZapMAuXVrtvni2S" },
+      "APS Ratnuchak": { fees: 44000, size: 22, established: "1983", rating: "4.8", type: "Army School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 95, intake: 2400, facilities: "Excellence Hub, Sports Field, Modern Classrooms", img: "https://share.google/images/jgOEn5XgvrNtscwLu" },
+      "Springdales School": { fees: 65000, size: 8, established: "2013", rating: "4.6", type: "K-12 School", accreditation: "CBSE", city: "Jammu", placements: 0, faculty: 50, intake: 1200, facilities: "Experiential Learning Labs, Activity Rooms, Sports Ground", img: "https://share.google/images/xnK3HANmqoGIyoqpS" },
+      "Christ School Poonch": { fees: 35000, size: 10, established: "1990", rating: "4.7", type: "K-12 School", accreditation: "JKBOSE", city: "Poonch", placements: 0, faculty: 55, intake: 1500, facilities: "Smart Classrooms, Green Campus, Playgrounds, Science Labs", img: "https://share.google/images/zXWvjxmtMQQ8VPnw7" },
+      "JNV Poonch": { fees: 10000, size: 25, established: "1986", rating: "4.6", type: "Residential School", accreditation: "CBSE", city: "Poonch", placements: 0, faculty: 40, intake: 500, facilities: "Free Education, Hostels, Science Labs, Playground", img: "https://share.google/images/PNUDgIQkk5xonCery" },
+      "JNV Jammu-I (Gharota)": { fees: 10000, size: 28, established: "1986", rating: "4.5", type: "Residential School", accreditation: "CBSE", city: "Gharota", placements: 0, faculty: 45, intake: 540, facilities: "ICT Labs, Boarding, Sports Complex, Free Uniforms", img: "https://share.google/images/PNUDgIQkk5xonCery" },
+      "JNV Jammu-II (Akhnoor)": { fees: 10000, size: 15, established: "2017", rating: "4.4", type: "Residential School", accreditation: "CBSE", city: "Akhnoor", placements: 0, faculty: 30, intake: 300, facilities: "New Campus, Smart Classrooms, Boarding Facilities", img: "https://share.google/images/PNUDgIQkk5xonCery" },
+      "HSS Boys Poonch": { fees: 5000, size: 12, established: "1935", rating: "4.3", type: "Govt. School", accreditation: "JKBOSE", city: "Poonch", placements: 0, faculty: 35, intake: 800, facilities: "Urban Campus, English Medium, Experienced Faculty", img: "https://share.google/images/oG7AbtI1FSRe28UB9" },
+      "International School Rajouri": { fees: 45000, size: 8, established: "1970", rating: "4.6", type: "K-12 School", accreditation: "JKBOSE", city: "Rajouri", placements: 0, faculty: 45, intake: 1100, facilities: "30 Computers, Library (3k Books), Playground, Pucca Building", img: "https://share.google/images/PIaoY07OBzYK6Okbd" },
+      "PM Shri KV BSF Campus Rajouri": { fees: 12000, size: 15, established: "1980", rating: "4.7", type: "Central Govt. School", accreditation: "CBSE", city: "Rajouri", placements: 0, faculty: 55, intake: 1600, facilities: "PCM/PCB/Commerce Streams, Affordable Fees, KVS Management", img: "https://share.google/images/eHFALnOxPgknz7hvS" },
+      "Garib Nawaz Public School": { fees: 18000, size: 4, established: "1995", rating: "4.1", type: "Private School", accreditation: "JKBOSE", city: "Rajouri", placements: 0, faculty: 12, intake: 400, facilities: "Computer Learning, Basic Amenities, Playground", img: "https://share.google/images/KQE1lJcfbZbw6cEHA" },
+      "JNV Rajouri (Kotranka)": { fees: 10000, size: 30, established: "1986", rating: "4.7", type: "Residential School", accreditation: "CBSE", city: "Rajouri", placements: 0, faculty: 45, intake: 560, facilities: "Free Boarding, Kotranka Campus, JNVST Entrance, Holistic Focus", img: "https://share.google/images/RFlLU9JqtoUbR8GUn" },
+      "Govt. ITI Jammu (Shakti Nagar)": { fees: 5000, size: 10, established: "1960", rating: "4.2", type: "Vocational", accreditation: "NCVT", city: "Jammu", placements: 75, faculty: 40, intake: 800, facilities: "Workshops, Lab, NCVT Affiliated, Engineering Trades", img: "https://share.google/images/nSSF63ZkC0Vmv4yeH" }
+    };
+    
+
+    window.onload = function() {
+      let rawSelected = JSON.parse(localStorage.getItem('selectedColleges') || '[]');
+      const selected = rawSelected.map(s => s.trim());
+      
+      if (selected.length < 1) {
+        document.getElementById('main-content').innerHTML = `
+          <div class="empty-state">
+            <h2 style="font-size:2rem; margin-bottom:10px;">Select Institutions</h2>
+            <p>You haven't selected any institutions yet. Go back to discover and compare.</p>
+            <br>
+            <a href="index.html" style="text-decoration:none; background:var(--primary); color:white; padding:15px 30px; border-radius:12px; display:inline-block; font-weight:700;">Explore Now</a>
+          </div>`;
+        return;
+      }
+      renderComparison(selected);
+      renderCharts(selected);
+    };
+
+    function renderComparison(selected) {
+      const area = document.getElementById('comparison-area');
+      const table = document.createElement('table');
+      table.className = 'comparison-table';
+
+      const rows = [
+        { label: "Overview", key: "header" },
+        { label: "Rating / Score", key: "rating" },
+        { label: "Est. Year", key: "established" },
+        { label: "Location", key: "city" },
+        { label: "Accreditation", key: "accreditation" },
+        { label: "Annual Intake", key: "intake" },
+        { label: "Faculty Size", key: "faculty" },
+        { label: "Facilities", key: "facilities" }
+      ];
+
+      rows.forEach(row => {
+        const tr = document.createElement('tr');
+        const th = document.createElement('th');
+        th.innerText = row.label;
+        tr.appendChild(th);
+
+        selected.forEach(name => {
+          const data = institutionData[name] || { established: "TBD", type: "Unit", rating: "N/A", city: "-", accreditation: "-", intake: "-", faculty: "-", facilities: "-", img: "https://via.placeholder.com/120" };
+          const td = document.createElement('td');
+
+          if (row.key === "header") {
+            td.innerHTML = `
+              <div class="inst-card-header">
+                <img src="${data.img}" alt="${name}">
+                <h2>${name}</h2>
+                <span class="type-badge">${data.type}</span>
+              </div>`;
+          } else if (row.key === "rating") {
+            td.innerHTML = `<span class="rating-badge">${data.rating} / 5.0</span>`;
+          } else {
+            td.innerText = data[row.key];
+          }
+          tr.appendChild(td);
+        });
+        table.appendChild(tr);
+      });
+
+      area.appendChild(table);
+    }
+
+    function renderCharts(selected) {
+      const parent = document.getElementById('analytics-grid');
+      const labels = selected;
+      
+      const metrics = [
+        { title: 'Annual Fee Matrix (₹)', data: selected.map(n => institutionData[n]?.fees || 0), color: '#00bfa6' },
+        { title: 'Infrastructure Scale (Acres)', data: selected.map(n => institutionData[n]?.size || 0), color: '#0284c7' },
+        { title: 'Success/Placement Analytics (%)', data: selected.map(n => institutionData[n]?.placements || 0), color: '#f59e0b' },
+        { title: 'Peer Group Size (Intake)', data: selected.map(n => institutionData[n]?.intake || 0), color: '#6366f1' }
+      ];
+
+      metrics.forEach((m, i) => {
+        const panel = document.createElement('div');
+        panel.className = 'panel';
+        panel.innerHTML = `<h3>${m.title}</h3><canvas id="chart-${i}"></canvas>`;
+        parent.appendChild(panel);
+
+        new Chart(document.getElementById(`chart-${i}`), {
+          type: 'bar',
+          data: {
+            labels: labels,
+            datasets: [{ label: m.title, data: m.data, backgroundColor: m.color, borderRadius: 12, barThickness: 40 }]
+          },
+          options: {
+            responsive: true,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, grid: { color: '#f1f5f9' } }, x: { grid: { display: false } } }
+          }
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+

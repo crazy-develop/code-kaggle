@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs & Internships - Suvidha AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0f172a;
+      --secondary: #0891b2;
+      --accent: #047857;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --bg-white: #ffffff;
+      --bg-light: #f8fafc;
+      --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --premium-gradient: linear-gradient(135deg, #0f172a 0%, #0891b2 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* Navbar Styles */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+      background: var(--premium-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #cbd5e1;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    /* Hero Section */
+    .hero-jobs {
+      background: var(--primary);
+      padding: 100px 8% 140px;
+      text-align: center;
+      color: white;
+      position: relative;
+    }
+
+    .hero-jobs h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: var(--premium-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-jobs p {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      max-width: 700px;
+      margin: 0 auto 40px;
+    }
+
+    /* Search Bar */
+    .search-container {
+      max-width: 1000px;
+      margin: -60px auto 40px;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr 150px;
+      gap: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .search-input:focus {
+      border-color: var(--secondary);
+    }
+
+    .btn-search {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .btn-search:hover {
+      background: #0e7490;
+      transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    .container {
+      padding: 40px 8%;
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 40px;
+    }
+
+    /* Sidebar Filters */
+    .sidebar {
+      background: transparent;
+    }
+
+    .filter-card {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+      margin-bottom: 20px;
+    }
+
+    .filter-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: var(--text-light);
+    }
+
+    .filter-option input {
+      accent-color: var(--secondary);
+    }
+
+    /* Job Listings */
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .job-card {
+      background: white;
+      padding: 30px;
+      border-radius: 18px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-left: 5px solid transparent;
+    }
+
+    .job-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--card-shadow);
+      border-left-color: var(--secondary);
+    }
+
+    .job-info h4 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .company-name {
+      color: var(--secondary);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .job-meta {
+      display: flex;
+      gap: 20px;
+      font-size: 0.9rem;
+      color: var(--text-light);
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .job-action {
+      text-align: right;
+    }
+
+    .btn-apply {
+      padding: 10px 25px;
+      background: #f1f5f9;
+      color: var(--primary);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .job-card:hover .btn-apply {
+      background: var(--primary);
+      color: white;
+    }
+
+    .api-status {
+      padding: 20px;
+      background: #ecfdf5;
+      color: #065f46;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
+
+    footer {
+      background: var(--primary);
+      color: #94a3b8;
+      padding: 60px 8% 20px;
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    @media (max-width: 900px) {
+      .container { grid-template-columns: 1fr; }
+      .search-container { grid-template-columns: 1fr; margin-top: -80px; width: 90%; }
+      .sidebar { display: none; }
+    }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="logo">Career Compass AI</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#explore-hub">Explore Hub</a></li>
+      <li><a href="compare.html">Compare Institutions</a></li>
+      <li><a href="jobs.html" class="active">Opportunities</a></li>
+      <li><a href="https://www.whatin.in/">Academic</a></li>
+      <li><a href="solver.html">AI Solver ✨</a></li>
+      <li><a href="javascript:void(0)" onclick="openScholarship()">Scholarship AI</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero-jobs">
+    <h1>Launch Your Career</h1>
+    <p>Connecting talented students from Jammu, Kashmir, and beyond with premium job and internship opportunities via Jooble Engine.</p>
+  </header>
+
+  <section class="search-container">
+    <input type="text" placeholder="Job Title, Skills, or Keyword" class="search-input" id="keyword-input">
+    <input type="text" placeholder="Location (e.g. Jammu, Remote)" class="search-input" id="location-input">
+    <button class="btn-search" onclick="searchJobs()">Find Jobs</button>
+  </section>
+
+  <main class="container">
+    <aside class="sidebar">
+      <div class="filter-card">
+        <h3>Job Type</h3>
+        <label class="filter-option"><input type="checkbox" checked> Full-time</label>
+        <label class="filter-option"><input type="checkbox" checked> Internship</label>
+        <label class="filter-option"><input type="checkbox"> Part-time</label>
+        <label class="filter-option"><input type="checkbox"> Remote</label>
+      </div>
+
+      <div class="filter-card">
+        <h3>Salary Range</h3>
+        <label class="filter-option"><input type="radio" name="salary"> ₹2L - ₹5L</label>
+        <label class="filter-option"><input type="radio" name="salary"> ₹5L - ₹10L</label>
+        <label class="filter-option"><input type="radio" name="salary"> ₹10L+</label>
+      </div>
+    </aside>
+
+    <section class="content-area">
+      <div class="api-status">
+        <span>🔌</span> Currently showing <b>Live Demo Data</b>. Jooble API integration pending.
+      </div>
+
+      <div class="job-list" id="job-results">
+        <!-- Placeholder Job 1 -->
+        <div class="job-card">
+          <div class="job-info">
+            <span class="company-name">Google J&K Hub</span>
+            <h4>Cloud Tech Internship</h4>
+            <div class="job-meta">
+              <span class="meta-item">📍 Jammu</span>
+              <span class="meta-item">💼 Paid Internship</span>
+              <span class="meta-item">🕒 3 Months</span>
+            </div>
+          </div>
+          <div class="job-action">
+            <a href="#" class="btn-apply">View Details</a>
+          </div>
+        </div>
+
+        <!-- Placeholder Job 2 -->
+        <div class="job-card">
+          <div class="job-info">
+            <span class="company-name">Sanskriti Tech Solutions</span>
+            <h4>Junior Frontend Developer</h4>
+            <div class="job-meta">
+              <span class="meta-item">📍 Remote (India)</span>
+              <span class="meta-item">💼 Full-time</span>
+              <span class="meta-item">🕒 Posted 2 days ago</span>
+            </div>
+          </div>
+          <div class="job-action">
+            <a href="#" class="btn-apply">View Details</a>
+          </div>
+        </div>
+
+        <!-- Placeholder Job 3 -->
+        <div class="job-card">
+          <div class="job-info">
+            <span class="company-name">HDFC Bank Jammu</span>
+            <h4>Management Trainee</h4>
+            <div class="job-meta">
+              <span class="meta-item">📍 Bari Brahmana, Jammu</span>
+              <span class="meta-item">💼 Full-time</span>
+              <span class="meta-item">🕒 Urgent Opening</span>
+            </div>
+          </div>
+          <div class="job-action">
+            <a href="#" class="btn-apply">View Details</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Suvidha AI • Job Portal powered by Jooble</p>
+    <div style="margin-top:15px; font-size:14px; opacity:0.7">
+      <a href="about.html" style="color:#fff; margin:0 10px">About</a>
+      <a href="privacy.html" style="color:#fff; margin:0 10px">Privacy</a>
+      <a href="terms.html" style="color:#fff; margin:0 10px">Terms</a>
+    </div>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script>
+    // Initialize with default search
+    window.onload = function() {
+      searchJobs('it', 'Jammu');
+    }
+
+    async function searchJobs(customKeyword, customLocation) {
+      const keywordInput = document.getElementById('keyword-input');
+      const locationInput = document.getElementById('location-input');
+      const resultsContainer = document.getElementById('job-results');
+      const apiStatus = document.querySelector('.api-status');
+
+      const keyword = customKeyword || keywordInput.value || 'Software Engineer';
+      const location = customLocation || locationInput.value || 'India';
+
+      // Show Loading State
+      resultsContainer.innerHTML = `
+        <div style="text-align:center; padding: 50px; color: var(--text-light)">
+          <div style="font-size: 2rem; margin-bottom:10px">⏳</div>
+          <p>Fetching curated opportunities for you...</p>
+        </div>
+      `;
+
+      try {
+        const response = await fetch(JOOBLE_CONFIG.API_URL + JOOBLE_CONFIG.API_KEY, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            keywords: keyword,
+            location: location
+          })
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+        
+        const data = await response.json();
+        
+        renderJobs(data.jobs);
+        
+        // Update Status
+        apiStatus.innerHTML = `<span>⚡</span> Results for: <b>${keyword}</b> in <b>${location}</b> via Jooble API.`;
+        apiStatus.style.background = '#f0f9ff';
+        apiStatus.style.color = '#0369a1';
+
+      } catch (error) {
+        console.error('Fetch error:', error);
+        resultsContainer.innerHTML = `<p style="color:var(--red); padding:20px">Error connecting to Jooble API. Please ensure your API key is valid.</p>`;
+      }
+    }
+
+    function renderJobs(jobs) {
+      const resultsContainer = document.getElementById('job-results');
+      
+      if (!jobs || jobs.length === 0) {
+        resultsContainer.innerHTML = `
+          <div style="text-align:center; padding: 50px;">
+            <p>No jobs found for these criteria. Try different keywords.</p>
+          </div>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = jobs.map(job => `
+        <div class="job-card">
+          <div class="job-info">
+            <span class="company-name">${job.company || 'Confidential'}</span>
+            <h4>${job.title}</h4>
+            <div class="job-meta">
+              <span class="meta-item">📍 ${job.location || 'Location Not Specified'}</span>
+              <span class="meta-item">📅 ${job.updated || 'Recently'}</span>
+            </div>
+            <p style="font-size: 0.85rem; color: #64748b; margin-top:10px; max-height: 40px; overflow: hidden">
+              ${stripHtml(job.snippet).substring(0, 150)}...
+            </p>
+          </div>
+          <div class="job-action">
+            <a href="${job.link}" target="_blank" class="btn-apply">View & Apply</a>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function stripHtml(html) {
+      let tmp = document.createElement("DIV");
+      tmp.innerHTML = html;
+      return tmp.textContent || tmp.innerText || "";
+    }
+  </script>
+</body>
+</html>
+

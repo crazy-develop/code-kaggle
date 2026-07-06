@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IIT Jammu - Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; padding: 20px; color: #1f2937; }
+    .container { max-width: 1100px; background-color: #fff; margin: auto; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+    .header { display: flex; align-items: center; padding: 20px; background: linear-gradient(135deg, #1e293b, #334155); color: #fff; }
+    .header img { width: 60px; height: 60px; border-radius: 8px; margin-right: 20px; }
+    .header h1 { font-size: 24px; font-weight: 700; }
+    .banner { height: 200px; background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?fit=crop&w=1000&q=80'); background-size: cover; background-position: center; }
+    .tabs { display: flex; justify-content: space-around; background-color: #f9fafb; border-bottom: 1px solid #e5e7eb; }
+    .tabs div { padding: 12px 20px; cursor: pointer; font-weight: 600; color: #374151; transition: 0.3s; }
+    .tabs div.active { color: #00bfa6; border-bottom: 3px solid #00bfa6; }
+    .content { padding: 30px; display: none; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+    .content.active-section { display: grid; }
+    .card { background-color: #f9fafb; padding: 20px; border-radius: 12px; }
+    .card ul { list-style: none; }
+    .card ul li { margin-bottom: 10px; padding-left: 20px; position: relative; }
+    .card ul li::before { content: '✓'; position: absolute; left: 0; color: #00bfa6; font-weight: bold; }
+    .actions { padding: 20px; text-align: center; }
+    .apply-btn { background: #1e293b; color: #fff; padding: 14px 28px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; }
+  </style>
+
+  <meta name="google-adsense-account" content="ca-pub-3296618712266727">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3296618712266727" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="https://share.google/images/JDmCy7MCwh4K3zaxU" alt="IIT Jammu Logo">
+      <div>
+        <h1>Indian Institute of Technology (IIT) Jammu</h1>
+        <p>Jagti, Jammu • Established 2016 • NIRF 62nd (Engineering)</p>
+      </div>
+    </div>
+    <div class="banner"></div>
+    <div class="tabs">
+      <div class="active">Overview</div>
+      <div>Academics</div>
+      <div>Campus Life</div>
+      <div>Placements</div>
+    </div>
+    <div class="content active-section" id="overview-section">
+      <div class="card">
+        <h3>🎓 Establishment</h3>
+        <p>Founded in <strong>2016</strong> and initially mentored by <strong>IIT Delhi</strong>.</p>
+        <p><strong>Campus Size:</strong> Sprawling 400-acre modern campus at Jagti.</p>
+      </div>
+      <div class="card">
+        <h3>🏆 National Ranking</h3>
+        <p>Ranked <strong>62nd in Engineering</strong> (NIRF 2024).</p>
+      </div>
+    </div>
+    <div class="content" id="academics-section">
+      <div class="card">
+        <h3>📘 Programs Offered</h3>
+        <ul>
+          <li><strong>B.Tech:</strong> Multiple specializations (JEE Advanced required).</li>
+          <li><strong>M.Tech:</strong> Specialized engineering disciplines.</li>
+          <li><strong>Ph.D.:</strong> Doctoral research across several fields.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📝 Admission Eligibility</h3>
+        <p><strong>B.Tech:</strong> At least 75% in 10+2 and a competitive <strong>JEE Advanced</strong> score.</p>
+      </div>
+    </div>
+    <div class="content" id="campus-section">
+      <div class="card">
+        <h3>🏢 Infrastructure & Research</h3>
+        <ul>
+          <li>Modern classrooms and 375-seater auditorium.</li>
+          <li><strong>SAPTARSHI Labs:</strong> Central Instrumentation Facility.</li>
+          <li>Dedicated Innovation Centers.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🏓 Student Life</h3>
+        <ul>
+          <li>Full hostels, dining hall, and gym.</li>
+          <li>Football, basketball, badminton facilities.</li>
+          <li>Active student clubs and organizations.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="content" id="placements-section">
+      <div class="card">
+        <h3>💼 Placement Success</h3>
+        <p><strong>Placement Rate:</strong> 85%+ overall success rate.</p>
+        <p>Students placed in top national and international firms.</p>
+      </div>
+      <div class="card">
+        <h3>💰 Fees & Scholarships</h3>
+        <p>Tuition fees vary based on parental income.</p>
+        <p>Fee waivers available for SC/ST and families with income < ₹5,00,000.</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="apply-btn" onclick="openApplicationForm()">Apply Now</button>
+    </div>
+  </div>
+  <div id="applyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:2000; align-items:center; justify-content:center;">
+    <div style="background:white; padding:40px; border-radius:24px; width:100%; max-width:500px;">
+      <h2>Apply for IIT Jammu</h2>
+      <form onsubmit="event.preventDefault(); window.location.href='apply_success.html';">
+        <input type="text" placeholder="Full Name" required style="width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ddd;">
+        <input type="email" placeholder="Email" required style="width:100%; padding:12px; margin-bottom:15px; border-radius:8px; border:1px solid #ddd;">
+        <button type="submit" class="apply-btn" style="width:100%;">Submit Application</button>
+        <button type="button" onclick="document.getElementById('applyModal').style.display='none'" style="margin-top:10px; width:100%; border:none; background:#eee; padding:10px; border-radius:8px;">Cancel</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    function openApplicationForm() { document.getElementById('applyModal').style.display = 'flex'; }
+    const tabs = document.querySelectorAll(".tabs div");
+    const sections = [
+      document.getElementById("overview-section"),
+      document.getElementById("academics-section"),
+      document.getElementById("campus-section"),
+      document.getElementById("placements-section"),
+    ];
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.classList.remove("active"));
+        tab.classList.add("active");
+        sections.forEach(s => s.classList.remove("active-section"));
+        sections[index].classList.add("active-section");
+      });
+    });
+  </script>
+</body>
+</html>
+
