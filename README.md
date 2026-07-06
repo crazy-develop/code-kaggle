@@ -1,24 +1,24 @@
 # 🚀 Suvidha AI Career Portal & Secure Agent Ecosystem
 **Kaggle AI Agent Submission 2026**
 
-**Suvidha** is a comprehensive, AI-powered educational and career guidance platform designed to empower students. More than just a career portal, it features a sophisticated backend powered by a **Google Gemini AI Agent** capable of executing tools securely through a **Model Context Protocol (MCP)** server integration (`armorCodex`).
+**Suvidha** is a comprehensive, highly secure, AI-powered educational and career guidance platform. More than just a career portal, it features a sophisticated backend powered by a **Google Gemini AI Agent** capable of autonomous actions, safeguarded by **ArmorIQ's intent-based security enforcement (armorCodex)**.
 
 ---
 
 ## 📑 Category 1: The Pitch - Problem, Solution, Value
 
 ### 🚨 The Problem
-Students from regional or underrepresented areas (e.g., Jammu & Kashmir) often face a massive information gap regarding local educational institutions, career roadmaps, and immediate academic problem-solving. Furthermore, traditional AI chatbots cannot natively interact with host systems or execute dynamic backend tools securely without risking server vulnerabilities.
+Traditional educational portals lack intelligent interactivity, and providing AI Agents with the ability to execute code or run backend tools introduces massive security risks. A single hallucination by an AI agent with server access could compromise the entire system. Students in regional areas (like Jammu & Kashmir) need deep, accurate, and context-aware assistance, but delivering this via autonomous agents securely is a major challenge.
 
 ### 💡 The Solution & Value
-**Suvidha** bridges this gap through a unified platform featuring:
-1. **Regional College Directory**: Curated database of institutions with side-by-side comparison.
-2. **Dynamic AI Question Solver**: An intelligent agent that can process images/text and securely run bash commands on the backend to verify technical answers.
-3. **Personalized Mentorship & Jobs**: Career roadmapping and a portal for 1-on-1 mentorship bookings.
-4. **NGO & Government Portal**: Dashboards for regional tracking and providing funding to marginalized students.
+**Suvidha** bridges the educational gap with a highly interactive UI while solving the agent security problem via a robust backend.
+1. **Regional College Directory**: Curated database with a comparison engine for regional institutions.
+2. **Dynamic AI Question Solver**: An intelligent agent that can process images/text and securely execute calculations or scripts on the backend.
+3. **Role-Based Portals**: Dedicated authentication for Students, NGOs, and Government officials for targeted resource allocation.
+4. **Zero-Trust AI Execution**: Integration with ArmorIQ (armorCodex) ensures that every action the AI agent attempts is cryptographically verified against a pre-registered intent plan before execution.
 
 **Why Agents?** 
-Instead of relying on static APIs, our AI Agent (powered by Gemini) can decide *when* and *how* to execute backend tools (like `execute_bash`) to resolve complex student queries. This turns the platform from a simple QA bot into an autonomous digital tutor.
+Agents elevate the platform from a simple chatbot to an autonomous problem solver. Instead of relying on static pre-programmed APIs, our Gemini-powered Agent can dynamically write and execute bash tools to calculate mathematical problems, scrape data, or compile code for students in real-time.
 
 ---
 
@@ -26,61 +26,60 @@ Instead of relying on static APIs, our AI Agent (powered by Gemini) can decide *
 
 Our architecture heavily demonstrates the **Key Concepts** required by the Kaggle Evaluation: **Agents**, **MCP Servers**, and **Security Features**.
 
-### 1. Agent Architecture & Tool Use (Code)
-The core of our AI engine lives in `HACATHON-MATHURA/server.js`. We utilize the `@google/genai` SDK with function calling enabled. When a student uploads a query, the Gemini model can autonomously decide to use the `execute_bash` tool to calculate results, compile code snippets, or retrieve system information to provide a highly accurate answer.
+### 1. Multi-Agent Ecosystem (Code)
+The core of our AI engine lives in `HACATHON-MATHURA/server.js`. We utilize the `@google/genai` SDK with function calling enabled. When a student queries the solver, the Gemini model can autonomously decide to use the `execute_bash` tool to resolve it.
 
 ### 2. MCP Server Integration (Code)
-To facilitate complex execution environments without coupling the core logic, we utilize an **MCP Server** architecture. 
-Our Node.js backend acts as an **MCP Client** (`mcpClient.js`) utilizing the `@modelcontextprotocol/sdk`. It connects via `stdio` to a locally running MCP server (`armorCodex/hosted-mcp/server.mjs`).
+To decouple our security logic from the core agent, we utilize a **Model Context Protocol (MCP)** architecture. 
+Our Node.js Express backend acts as an **MCP Client** (`mcpClient.js`). It connects via `stdio` transport to an independent, locally running MCP server (`armorCodex/hosted-mcp/server.mjs`).
 
-### 3. Intent-Based Security Features (Code)
-Running AI-generated bash commands is inherently dangerous. We implemented **armorCodex**, an intent-based security enforcement layer.
-Before the Express backend executes the agent's requested bash command, it communicates with the `armorCodex` MCP Server (using the `register_intent_plan` tool) to verify the command against local security policies. The command is only executed if it satisfies the security criteria, providing a powerful guardrail for the AI Agent.
-
-### 4. Beautiful & Modern UI
-The frontend uses high-end, glassmorphic design principles with pure HTML/CSS/JS. It includes interactive widgets, dynamic AI side-panels (`ai-agent-widget.js`), and responsive layouts designed to give a premium feel.
+### 3. Advanced Security Features (Code)
+Security is the cornerstone of this project. We have implemented a multi-layered security approach:
+- **API Key Abstraction**: The AI Agent Widget (`ai-agent-widget.js`) never communicates with Gemini directly. All requests are proxied through our custom Express server.
+- **Role-Based Access Control (RBAC)**: Distinct authorization boundaries using Firebase for Students, NGOs, and Government entities.
+- **ArmorIQ Intent-Based Enforcement**: Running AI-generated bash commands is inherently dangerous. We implemented **armorCodex**. Before the Express backend executes the agent's requested tool, it communicates with the `armorCodex` MCP Server to verify the command against local security policies. It also sends signed intent and audit events to ArmorIQ IAP.
 
 ---
 
-## 📊 System Architecture Diagram
+## 🛡️ ArmorIQ Security Execution Flow
 
-Below is the execution flow showcasing how our React frontend, Express Backend, Gemini Agent, and armorCodex MCP Server interact securely:
+To ensure the AI Agent cannot run malicious commands, we utilize an intent-based verification pipeline. Below is the architecture diagram demonstrating how **Armor IQ (armorCodex)** secures our agent.
 
 ```mermaid
-graph TD
-    %% Entities
-    User((Student / User))
-    ReactUI[React Vite Frontend<br>Port: 3000]
-    Express[Express Backend API<br>Port: 3001]
-    Gemini[Google Gemini API<br>Agent Engine]
-    MCPClient[mcpClient.js<br>@modelcontextprotocol]
-    MCPServer[armorCodex MCP Server<br>stdio connection]
-    HostOS[Host OS / Bash]
+sequenceDiagram
+    participant User
+    participant Frontend as Suvidha UI
+    participant Backend as Express API
+    participant Gemini as Gemini Agent
+    participant MCP as ArmorIQ MCP Server
+    participant OS as Host System
 
-    %% Flow
-    User -- "Uploads Query/Image" --> ReactUI
-    ReactUI -- "POST /api/analyze" --> Express
-    Express -- "Sends Context + Tools" --> Gemini
-    Gemini -- "ToolCall: execute_bash" --> Express
-    Express -- "1. Intent Verification" --> MCPClient
-    MCPClient -- "callTool(register_intent)" --> MCPServer
-    MCPServer -- "Policy Approved" --> MCPClient
-    Express -- "2. Execute securely" --> HostOS
-    HostOS -- "Output/Result" --> Express
-    Express -- "Result feedback" --> Gemini
-    Gemini -- "Final Answer" --> Express
-    Express -- "JSON Response" --> ReactUI
-    ReactUI -- "Displays Answer" --> User
-
-    classDef frontend fill:#3498db,stroke:#2980b9,stroke-width:2px,color:#fff
-    classDef backend fill:#2ecc71,stroke:#27ae60,stroke-width:2px,color:#fff
-    classDef ai fill:#9b59b6,stroke:#8e44ad,stroke-width:2px,color:#fff
-    classDef security fill:#e74c3c,stroke:#c0392b,stroke-width:2px,color:#fff
-
-    class ReactUI frontend
-    class Express backend
-    class Gemini ai
-    class MCPClient,MCPServer security
+    User->>Frontend: Asks complex math/coding question
+    Frontend->>Backend: POST /api/analyze
+    Backend->>Gemini: Prompt + Available Tools (execute_bash)
+    
+    Gemini-->>Backend: ToolCall: execute_bash("python script.py")
+    
+    rect rgb(255, 200, 200)
+        Note over Backend,MCP: 🔒 ArmorIQ Security Pipeline
+        Backend->>MCP: callTool(register_intent_plan)
+        MCP-->>Backend: Intent Verified & Logged to Audit
+        Backend->>MCP: PreToolUse: Check Policy
+        MCP-->>Backend: Policy Status: ALLOW
+    end
+    
+    Backend->>OS: Execute "python script.py"
+    OS-->>Backend: Stdout (Results)
+    
+    rect rgb(200, 220, 255)
+        Note over Backend,MCP: 📋 Post-Execution Audit
+        Backend->>MCP: PostToolUse: Send execution audit log
+    end
+    
+    Backend->>Gemini: ToolResponse (Results)
+    Gemini-->>Backend: Final Formatted Answer
+    Backend-->>Frontend: JSON Response
+    Frontend-->>User: Displays Output
 ```
 
 ---
@@ -112,7 +111,7 @@ We have streamlined deployability using `concurrently` to launch the entire mult
    ```bash
    npm run dev
    ```
-   *This command leverages `concurrently` to simultaneously launch the Vite React UI on port 3000 and the secure Express Agent Backend on port 3001.*
+   *This single command leverages `concurrently` to simultaneously launch the Vite React UI on port 3000 and the secure Express Agent Backend on port 3001.*
 
 4. **Launch Main Portal:**
    Open the root `index.html` via Live Server or any static web server to access the primary Suvidha HTML/CSS dashboard.
