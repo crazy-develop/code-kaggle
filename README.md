@@ -117,4 +117,38 @@ We have streamlined deployability using `concurrently` to launch the entire mult
    Open the root `index.html` via Live Server or any static web server to access the primary Suvidha HTML/CSS dashboard.
 
 ---
-*Built with ❤️ for Sanskriti HackIndia and Kaggle AI Agent Track 2026*
+
+## 🛠️ Complete Tech Stack & Tools Used
+
+To build this massive regional ecosystem, we leveraged a modern, agent-centric tech stack:
+
+**Frontend & UI**
+- **HTML5, CSS3, JavaScript (ES6+)**: Core structure with custom Glassmorphism UI tokens.
+- **React.js & Vite**: Lightning-fast frontend for the AI Question Solver module.
+- **Tailwind CSS**: For rapid utility-based styling within the React Agent ecosystem.
+
+**AI & Agent Frameworks**
+- **Google Gemini 1.5/2.5 Flash**: The core "brain" of our AI Agent.
+- **@google/genai SDK**: Enables advanced tool-calling capabilities (`execute_bash`) for our agent.
+
+**Security & Backend Ecosystem**
+- **ArmorIQ (armorCodex)**: Advanced intent-based bash security policies preventing malicious code execution by AI agents.
+- **Model Context Protocol (MCP)**: `@modelcontextprotocol/sdk` to bridge the Express backend with armorCodex securely.
+- **Node.js & Express.js**: Our custom backend API proxy mapping the frontend to Gemini.
+- **concurrently**: For synchronized deployment of our complex multi-service architecture.
+
+**Databases & Auth**
+- **Firebase**: Handling unified Authentication and Real-time Database needs for our regional dashboards.
+
+---
+
+## 👥 Meet the Team: Vishwas
+
+We are **Team Vishwas**, passionate about solving local educational gaps through secure, autonomous AI agents.
+
+- **Dushyant Saini** – Team Leader 
+- **Neelesh Tiwari** – Team Member
+- **Unnati Gupta** – Team Member
+
+---
+*Built with ❤️ by Team Vishwas for Sanskriti HackIndia and Kaggle AI Agent Track 2026*
